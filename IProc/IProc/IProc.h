@@ -8,14 +8,16 @@
 #ifndef IPROC_H
 #define IPROC_H
 
-#include "../libiproc.h" 
+#include "../PNGProcessor/PNGProcessor.h"
+#include "../JPEGProcessor/JPEGProcessor.h"
+#include "../PixelProcessor/PixelProcessor.h"
 
 class IProc {
 public:
     IProc();
     IProc(const IProc& orig);
     virtual ~IProc();
-    int test();
+    int testMethod();
 private:
 
 };

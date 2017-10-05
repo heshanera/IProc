@@ -16,7 +16,7 @@ using namespace std;
 int main(int argc, char** argv) {
 
     IProc i;
-    i.test();
+    i.testMethod();
     
     return 0;
 }

@@ -35,7 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/IProc/IProc.o
+	${OBJECTDIR}/IProc/IProc.o \
+	${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o \
+	${OBJECTDIR}/PNGProcessor/PNGProcessor.o \
+	${OBJECTDIR}/PixelProcessor/PixelProcessor.o
 
 
 # C Compiler Flags
@@ -66,6 +69,21 @@ ${OBJECTDIR}/IProc/IProc.o: IProc/IProc.cpp
 	${MKDIR} -p ${OBJECTDIR}/IProc
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/IProc/IProc.o IProc/IProc.cpp
+
+${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o: JPEGProcessor/JPEGProcessor.cpp
+	${MKDIR} -p ${OBJECTDIR}/JPEGProcessor
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o JPEGProcessor/JPEGProcessor.cpp
+
+${OBJECTDIR}/PNGProcessor/PNGProcessor.o: PNGProcessor/PNGProcessor.cpp
+	${MKDIR} -p ${OBJECTDIR}/PNGProcessor
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PNGProcessor/PNGProcessor.o PNGProcessor/PNGProcessor.cpp
+
+${OBJECTDIR}/PixelProcessor/PixelProcessor.o: PixelProcessor/PixelProcessor.cpp
+	${MKDIR} -p ${OBJECTDIR}/PixelProcessor
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PixelProcessor/PixelProcessor.o PixelProcessor/PixelProcessor.cpp
 
 # Subprojects
 .build-subprojects:

@@ -5,6 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>IProc/IProc.h</itemPath>
+      <itemPath>JPEGProcessor/JPEGProcessor.h</itemPath>
+      <itemPath>PNGProcessor/PNGProcessor.h</itemPath>
+      <itemPath>PixelProcessor/PixelProcessor.h</itemPath>
       <itemPath>libiproc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -15,6 +18,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>IProc/IProc.cpp</itemPath>
+      <itemPath>JPEGProcessor/JPEGProcessor.cpp</itemPath>
+      <itemPath>PNGProcessor/PNGProcessor.cpp</itemPath>
+      <itemPath>PixelProcessor/PixelProcessor.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -37,10 +43,28 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs libpng`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libjpeg`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="IProc/IProc.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="IProc/IProc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="JPEGProcessor/JPEGProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="JPEGProcessor/JPEGProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PNGProcessor/PNGProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PNGProcessor/PNGProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PixelProcessor/PixelProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PixelProcessor/PixelProcessor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libiproc.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -68,6 +92,18 @@
       <item path="IProc/IProc.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="IProc/IProc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="JPEGProcessor/JPEGProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="JPEGProcessor/JPEGProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PNGProcessor/PNGProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PNGProcessor/PNGProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PixelProcessor/PixelProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PixelProcessor/PixelProcessor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libiproc.h" ex="false" tool="3" flavor2="0">
       </item>

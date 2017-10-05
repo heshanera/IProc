@@ -17,7 +17,14 @@ IProc::IProc(const IProc& orig) {
 IProc::~IProc() {
 }
 
-int IProc::test(){
-    std::cout<<"testing...";
+int IProc::testMethod(){
+    
+    std::cout<<"start testing...\n\n";
+    
+    PNGProcessor pngProc;
+    pngProc.readPNGVersionInfo();
+    
+    std::cout<<"\n\nstart testing...";
+    
     return 0;
 }
