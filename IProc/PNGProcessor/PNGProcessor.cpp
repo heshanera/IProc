@@ -15,14 +15,15 @@ PNGProcessor::PNGProcessor(const PNGProcessor& orig) { }
 
 PNGProcessor::~PNGProcessor() { }
 
+/**
+ * prints the version of the libpng
+ * @return 
+ */
 int PNGProcessor::readPNGVersionInfo(){
-    /*
-    fprintf(stderr, "   Compiled with libpng %s; using libpng %s.\n",
-      PNG_LIBPNG_VER_STRING, png_libpng_ver);
-    fprintf(stderr, "   Compiled with zlib %s; using zlib %s.\n",
-      ZLIB_VERSION, zlib_version);
-     */ 
-    std::cout<<"Testing";
+    
+    fprintf(stderr, "*** Compiled with libpng %s; using libpng %s.\n", PNG_LIBPNG_VER_STRING, png_libpng_ver);
+    //fprintf(stderr, "   Compiled with zlib %s; using zlib %s.\n", ZLIB_VERSION, zlib_version);
+    return 0;
 }
 
 /**
@@ -145,8 +146,6 @@ int PNGProcessor::readImage(char* path){
     // checks the remainder of the image for correctness
     png_read_end(pngPointer, NULL);
     
-    std::cout<<"Test Function";
-
     return 0;
 }
 

@@ -15,8 +15,9 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    IProc i;
-    i.testMethod();
+    IProc iproc;
+    iproc.readImageFormatInfo("png");
+    iproc.readImage("imgs/PNG/img1.png");
     
     return 0;
 }
