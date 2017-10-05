@@ -22,7 +22,7 @@ PNGProcessor::~PNGProcessor() { }
 int PNGProcessor::readPNGVersionInfo(){
     
     fprintf(stderr, "*** Compiled with libpng %s; using libpng %s.\n", PNG_LIBPNG_VER_STRING, png_libpng_ver);
-    //fprintf(stderr, "   Compiled with zlib %s; using zlib %s.\n", ZLIB_VERSION, zlib_version);
+    //fprintf(stderr, "*** Compiled with zlib %s; using zlib %s.\n", ZLIB_VERSION, zlib_version);
     return 0;
 }
 
@@ -68,26 +68,26 @@ int PNGProcessor::readImage(char* path){
     png_get_IHDR(pngPointer, infoPointer, &imgWidth, &imgHeight, &bitDepth, &colorType, NULL, NULL, NULL);
     
     // check the PNG file for background color
-    if (!png_get_valid(pngPointer, infoPointer, PNG_INFO_bKGD))
-        return 1;
-    
-    png_get_bKGD(pngPointer, infoPointer, &pBackground);
-    
-    if (bitDepth == 16) {
-        *red   = pBackground->red   >> 8;
-        *green = pBackground->green >> 8;
-        *blue  = pBackground->blue  >> 8;
-    } else if (colorType == PNG_COLOR_TYPE_GRAY && bitDepth < 8) {
-        if (bitDepth == 1)
-            *red = *green = *blue = pBackground->gray? 255 : 0;
-        else if (bitDepth == 2)   /* i.e., max value is 3 */
-            *red = *green = *blue = (255/3) * pBackground->gray;
-        else /* bit_depth == 4 */  /* i.e., max value is 15 */
-            *red = *green = *blue = (255/15) * pBackground->gray;
+    if (!png_get_valid(pngPointer, infoPointer, PNG_INFO_bKGD)) {
+        // do nothing
     } else {
-        *red   = pBackground->red;
-        *green = pBackground->green;
-        *blue  = pBackground->blue;
+        png_get_bKGD(pngPointer, infoPointer, &pBackground);
+        if (bitDepth == 16) {
+            *red   = pBackground->red   >> 8;
+            *green = pBackground->green >> 8;
+            *blue  = pBackground->blue  >> 8;
+        } else if (colorType == PNG_COLOR_TYPE_GRAY && bitDepth < 8) {
+            if (bitDepth == 1)
+                *red = *green = *blue = pBackground->gray? 255 : 0;
+            else if (bitDepth == 2)   /* i.e., max value is 3 */
+                *red = *green = *blue = (255/3) * pBackground->gray;
+            else /* bit_depth == 4 */  /* i.e., max value is 15 */
+                *red = *green = *blue = (255/15) * pBackground->gray;
+        } else {
+            *red   = pBackground->red;
+            *green = pBackground->green;
+            *blue  = pBackground->blue;
+        }
     }
     
     // sets up the transformations 
