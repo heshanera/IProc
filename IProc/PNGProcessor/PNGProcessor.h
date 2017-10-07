@@ -9,6 +9,7 @@
 #define PNGPROCESSOR_H
 
 #include <iostream>
+#include <stdio.h>
 #include <png.h>
 
 class PNGProcessor {
@@ -19,6 +20,7 @@ public:
     
     int readPNGVersionInfo();
     int readImage(char* path);
+    int processImage();
     int writeImage(char* path);
     
     
@@ -30,7 +32,6 @@ private:
     png_color_16p pBackground;
     unsigned char *red, *green, *blue;
     double gamma, displayExponent;
-    unsigned long *pRowbytes;
     int *pChannels;
     unsigned char *imageData;
     

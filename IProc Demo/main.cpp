@@ -19,6 +19,7 @@ int main(int argc, char** argv) {
     iproc.readImageFormatInfo("png");
     iproc.readImage("imgs/PNG/img1.png");
     
+    
     return 0;
 }
 

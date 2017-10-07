@@ -5,9 +5,9 @@
  * Created on September 16, 2017, 10:37 PM
  */
 
-#include <iostream>
-#include <stdio.h>
 #include "PNGProcessor.h"
+
+png_bytep *rowPointers;
 
 PNGProcessor::PNGProcessor() { }
 
@@ -125,11 +125,11 @@ int PNGProcessor::readImage(char* path){
     // allocate memory for the main image buffer
     // set up an array of pointers
     png_uint_32  i, rowBytes;
-    png_bytep  rowPointers[imgHeight];
+    rowPointers = new png_bytep[imgHeight];
   
     png_read_update_info(pngPointer, infoPointer);
   
-    *pRowbytes = rowBytes = png_get_rowbytes(pngPointer, infoPointer);
+    rowBytes = png_get_rowbytes(pngPointer, infoPointer);
     *pChannels = (int)png_get_channels(pngPointer, infoPointer);
   
     if ((imageData = (unsigned char *)malloc(rowBytes*imgHeight)) == NULL) {
@@ -147,6 +147,18 @@ int PNGProcessor::readImage(char* path){
     png_read_end(pngPointer, NULL);
     
     return 0;
+}
+
+int PNGProcessor::processImage() {
+  for(int y = 0; y < imgHeight; y++) {
+    png_bytep row = rowPointers[y];
+    for(int x = 0; x < imgHeight; x++) {
+      png_bytep px = &(row[x * 4]);
+      // Do something awesome for each pixel here...
+      //printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+    }
+  }
+  return 0;
 }
 
 int PNGProcessor::writeImage(char* path){
