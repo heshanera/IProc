@@ -230,31 +230,121 @@ int PNGProcessor::writeImage(char* path){
     png_init_io(pngPointer, mainprogPointer->outfile);
     png_set_compression_level(pngPointer, Z_BEST_COMPRESSION);
 
-    // Output is 8bit depth, RGBA format.
+    int color_type, interlace_type;
+  
+    if (mainprogPointer->pnmtype == 5)
+        color_type = PNG_COLOR_TYPE_GRAY;
+    else if (mainprogPointer->pnmtype == 6)
+        color_type = PNG_COLOR_TYPE_RGB;
+    else if (mainprogPointer->pnmtype == 8)
+        color_type = PNG_COLOR_TYPE_RGB_ALPHA;
+    else {
+        png_destroy_write_struct(&pngPointer, &infoPointer);
+        return 11;
+    }
+  
+    interlace_type = mainprogPointer->interlaced? PNG_INTERLACE_ADAM7 : PNG_INTERLACE_NONE;
+    
     png_set_IHDR(
-        pngPointer,
-        infoPointer,
-        imgWidth, imgHeight,
-        8,
-        PNG_COLOR_TYPE_RGBA,
-        PNG_INTERLACE_NONE,
-        PNG_COMPRESSION_TYPE_DEFAULT,
+        pngPointer, 
+        infoPointer, 
+        mainprogPointer->width,
+        mainprogPointer->height, 
+        mainprogPointer->sample_depth,
+        color_type, 
+        interlace_type,
+        PNG_COMPRESSION_TYPE_DEFAULT, 
         PNG_FILTER_TYPE_DEFAULT
     );
     
-    png_write_info(pngPointer, infoPointer);
-
-    // To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
-    // Use png_set_filler().
-    //png_set_filler(png, 0, PNG_FILLER_AFTER);
-
-    png_write_image(pngPointer, rowPointers);
-    png_write_end(pngPointer, NULL);
-
-    for(int y = 0; y < imgHeight; y++) {
-      free(rowPointers[y]);
+    if (mainprogPointer->gamma > 0.0)
+        png_set_gAMA(pngPointer, infoPointer, mainprogPointer->gamma);
+  
+    if (mainprogPointer->have_bg) {
+        png_color_16  background;
+  
+        background.red = mainprogPointer->bg_red;
+        background.green = mainprogPointer->bg_green;
+        background.blue = mainprogPointer->bg_blue;
+        png_set_bKGD(pngPointer, infoPointer, &background);
+    }
+  
+    if (mainprogPointer->have_time) {
+        png_time  modtime;
+  
+        png_convert_from_time_t(&modtime, mainprogPointer->modtime);
+        png_set_tIME(pngPointer, infoPointer, &modtime);
     }
     
-    fclose(outfile);
-    return 0;
+    if (mainprogPointer->have_text) {
+        png_text  text[6];
+        int  num_text = 0;
+  
+        if (mainprogPointer->have_text & TEXT_TITLE) {
+            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
+            text[num_text].key = "Title";
+            text[num_text].text = mainprogPointer->title;
+            ++num_text;
+        }
+        if (mainprogPointer->have_text & TEXT_AUTHOR) {
+            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
+            text[num_text].key = "Author";
+            text[num_text].text = mainprogPointer->author;
+            ++num_text;
+        }
+        if (mainprogPointer->have_text & TEXT_DESC) {
+            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
+            text[num_text].key = "Description";
+            text[num_text].text = mainprog_ptr->desc;
+            ++num_text;
+        }
+        if (mainprogPointer->have_text & TEXT_COPY) {
+            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
+            text[num_text].key = "Copyright";
+            text[num_text].text = mainprogPointer->copyright;
+            ++num_text;
+        }
+        if (mainprogPointer->have_text & TEXT_EMAIL) {
+            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
+            text[num_text].key = "E-mail";
+            text[num_text].text = mainprogPointer->email;
+            ++num_text;
+        }
+        if (mainprogPointer->have_text & TEXT_URL) {
+            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
+            text[num_text].key = "URL";
+            text[num_text].text = mainprogPointer->url;
+            ++num_text;
+        }
+        png_set_text(pngPointer, infoPointer, text, num_text);
+    }
+
+    
+    // Output is 8bit depth, RGBA format.
+//    png_set_IHDR(
+//        pngPointer,
+//        infoPointer,
+//        imgWidth, imgHeight,
+//        8,
+//        PNG_COLOR_TYPE_RGBA,
+//        PNG_INTERLACE_NONE,
+//        PNG_COMPRESSION_TYPE_DEFAULT,
+//        PNG_FILTER_TYPE_DEFAULT
+//    );
+//    
+//    png_write_info(pngPointer, infoPointer);
+//
+//    // To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
+//    // Use png_set_filler().
+//    //png_set_filler(png, 0, PNG_FILLER_AFTER);
+//
+//    png_write_image(pngPointer, rowPointers);
+//    png_write_end(pngPointer, NULL);
+//
+//    for(int y = 0; y < imgHeight; y++) {
+//      free(rowPointers[y]);
+//    }
+//    
+//    fclose(outfile);
+//    return 0;
 }
