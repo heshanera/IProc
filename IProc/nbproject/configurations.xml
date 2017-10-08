@@ -9,6 +9,7 @@
       <itemPath>PNGProcessor/PNGProcessor.h</itemPath>
       <itemPath>PixelProcessor/PixelProcessor.h</itemPath>
       <itemPath>libiproc.h</itemPath>
+      <itemPath>PNGProcessor/writepng.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -62,6 +63,8 @@
       </item>
       <item path="PNGProcessor/PNGProcessor.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="PNGProcessor/writepng.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="PixelProcessor/PixelProcessor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PixelProcessor/PixelProcessor.h" ex="false" tool="3" flavor2="0">
@@ -100,6 +103,8 @@
       <item path="PNGProcessor/PNGProcessor.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PNGProcessor/PNGProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PNGProcessor/writepng.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PixelProcessor/PixelProcessor.cpp" ex="false" tool="1" flavor2="0">
       </item>

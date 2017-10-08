@@ -11,6 +11,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <png.h>
+#include "zlib.h"
+#include "writepng.h"
 
 class PNGProcessor {
 public:
@@ -25,8 +27,6 @@ public:
     
     
 private:
-    png_structp pngPointer;
-    png_infop infoPointer;
     int colorType, bitDepth;
     png_uint_32 imgWidth, imgHeight;  //unsigned int
     png_color_16p pBackground;

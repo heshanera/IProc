@@ -42,6 +42,7 @@ int IProc::readImage(std::string imgPath){
     
     char *path = new char[imgPath.length() + 1];
     strcpy(path, imgPath.c_str());
+    
     switch(getImageFormat()){
         case 1:
             pngProc.readImage(path);
@@ -63,6 +64,22 @@ int IProc::resizeImage(int width, int height){
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
     return 0;
+}
+
+int IProc::writeImage(std::string imgPath){
+    
+    char *path = new char[imgPath.length() + 1];
+    strcpy(path, imgPath.c_str());
+    
+    switch(getImageFormat()){
+        case 1:
+            pngProc.writeImage(path);
+            break;
+        default:
+            fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
+    }
+    return 0;
+
 }
 
 

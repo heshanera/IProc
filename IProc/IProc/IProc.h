@@ -26,6 +26,8 @@ public:
     int getImageFormat();
     
     int readImage(std::string);
+    int writeImage(std::string);
+    int writeImage(std::string, std::string);
     
     int resizeImage(int, int);
     

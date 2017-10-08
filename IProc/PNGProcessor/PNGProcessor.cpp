@@ -13,28 +13,39 @@ PNGProcessor::PNGProcessor() { }
 
 PNGProcessor::PNGProcessor(const PNGProcessor& orig) { }
 
-PNGProcessor::~PNGProcessor() { }
+PNGProcessor::~PNGProcessor() {
+    free(rowPointers);
+}
 
 /**
+ * 
  * prints the version of the libpng
- * @return 
+ * @return 0
+ *  
  */
 int PNGProcessor::readPNGVersionInfo(){
     
     fprintf(stderr, "*** Compiled with libpng %s; using libpng %s.\n", PNG_LIBPNG_VER_STRING, png_libpng_ver);
-    //fprintf(stderr, "*** Compiled with zlib %s; using zlib %s.\n", ZLIB_VERSION, zlib_version);
+    fprintf(stderr, "*** Compiled with zlib %s; using zlib %s.\n", ZLIB_VERSION, zlib_version);
     return 0;
 }
 
 /**
+ * 
  * Store the the image in an unsigned char array [imageData]
  * 
  * @param path the path to the image
  * @return 0 if read the image without any errors
+ * 
  */
 int PNGProcessor::readImage(char* path){
     
+    png_structp pngPointer;
+    png_infop infoPointer;
+    
     FILE *infile = fopen(path, "rb");
+    
+    if(!infile) return 1; // error in output file //
     
     // Checking if the input file is a png file
     unsigned char signatureBytes[8];
@@ -65,7 +76,17 @@ int PNGProcessor::readImage(char* path){
     png_read_info(pngPointer, infoPointer); 
     
     // getting contents of PNG file's IHDR
-    png_get_IHDR(pngPointer, infoPointer, &imgWidth, &imgHeight, &bitDepth, &colorType, NULL, NULL, NULL);
+    png_get_IHDR(
+        pngPointer, 
+        infoPointer, 
+        &imgWidth, 
+        &imgHeight, 
+        &bitDepth, 
+        &colorType, 
+        NULL, 
+        NULL, 
+        NULL
+    );
     
     // check the PNG file for background color
     if (!png_get_valid(pngPointer, infoPointer, PNG_INFO_bKGD)) {
@@ -162,48 +183,78 @@ int PNGProcessor::processImage() {
     return 0;
 }
 
+/**
+ * 
+ * Write the image to the file in given path
+ * 
+ * @param path the path to the image
+ * @return 0 if read the image without any errors
+ * 
+ */
 int PNGProcessor::writeImage(char* path){
     
-    int y;
+    mainprog_info *mainprogPointer;
+    png_structp pngPointer;
+    png_infop infoPointer;
 
-  FILE *fp = fopen(filename, "wb");
-  if(!fp) abort();
-
-  png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-  if (!png) abort();
-
-  png_infop info = png_create_info_struct(png);
-  if (!info) abort();
-
-  if (setjmp(png_jmpbuf(png))) abort();
-
-  png_init_io(png, fp);
-
-  // Output is 8bit depth, RGBA format.
-  png_set_IHDR(
-    png,
-    info,
-    width, height,
-    8,
-    PNG_COLOR_TYPE_RGBA,
-    PNG_INTERLACE_NONE,
-    PNG_COMPRESSION_TYPE_DEFAULT,
-    PNG_FILTER_TYPE_DEFAULT
-  );
-  png_write_info(png, info);
-
-  // To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
-  // Use png_set_filler().
-  //png_set_filler(png, 0, PNG_FILLER_AFTER);
-
-  png_write_image(png, row_pointers);
-  png_write_end(png, NULL);
-
-  for(int y = 0; y < height; y++) {
-    free(row_pointers[y]);
-  }
-  free(row_pointers);
-
-  fclose(fp);
+    FILE *outfile = fopen(path, "wb");
     
+    if(!outfile) 
+        return 1;  // error in output file //
+
+    pngPointer = png_create_write_struct(
+        PNG_LIBPNG_VER_STRING,
+        mainprogPointer,  
+        NULL,    
+        NULL
+    );
+    if (!pngPointer)
+        fclose(outfile);
+        return 4;  // out of memory //
+
+    infoPointer = png_create_info_struct(pngPointer);
+    if (!infoPointer) 
+        png_destroy_write_struct(&pngPointer, NULL);
+        fclose(outfile);
+        return 4;
+
+    //if (setjmp(png_jmpbuf(pngPointer))) abort();
+    
+    // handle libpng errors
+    if(setjmp(png_jmpbuf(pngPointer))){
+        png_destroy_write_struct(&pngPointer, &infoPointer);
+        fclose(outfile);
+        return 2;
+    }
+
+    png_init_io(pngPointer, mainprogPointer->outfile);
+    png_set_compression_level(pngPointer, Z_BEST_COMPRESSION);
+
+    // Output is 8bit depth, RGBA format.
+    png_set_IHDR(
+        pngPointer,
+        infoPointer,
+        imgWidth, imgHeight,
+        8,
+        PNG_COLOR_TYPE_RGBA,
+        PNG_INTERLACE_NONE,
+        PNG_COMPRESSION_TYPE_DEFAULT,
+        PNG_FILTER_TYPE_DEFAULT
+    );
+    
+    png_write_info(pngPointer, infoPointer);
+
+    // To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
+    // Use png_set_filler().
+    //png_set_filler(png, 0, PNG_FILLER_AFTER);
+
+    png_write_image(pngPointer, rowPointers);
+    png_write_end(pngPointer, NULL);
+
+    for(int y = 0; y < imgHeight; y++) {
+      free(rowPointers[y]);
+    }
+    
+    fclose(outfile);
+    return 0;
 }
