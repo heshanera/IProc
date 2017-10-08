@@ -280,39 +280,40 @@ int PNGProcessor::writeImage(char* path){
         png_text text[6];
         int  num_text = 0;
   
-        if (mainprogPointer->have_text & mainprogPointer->title) {
+        if (mainprogPointer->have_text) {
             text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            text[num_text].key = "Title";
+            char title[] = "Title";
+            text[num_text].key = title;
             text[num_text].text = mainprogPointer->title;
             ++num_text;
-        }
-        if (mainprogPointer->have_text & mainprogPointer->author) {
+        
             text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            text[num_text].key = "Author";
+            char author[] = "Author";
+            text[num_text].key = author;
             text[num_text].text = mainprogPointer->author;
             ++num_text;
-        }
-        if (mainprogPointer->have_text & mainprogPointer->desc) {
+        
             text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            text[num_text].key = "Description";
+            char desc[] = "Description";
+            text[num_text].key = desc;
             text[num_text].text = mainprogPointer->desc;
             ++num_text;
-        }
-        if (mainprogPointer->have_text & mainprogPointer->copyright) {
+        
             text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            text[num_text].key = "Copyright";
+            char copyright[] = "Copyright";
+            text[num_text].key = copyright;
             text[num_text].text = mainprogPointer->copyright;
             ++num_text;
-        }
-        if (mainprogPointer->have_text & mainprogPointer->email) {
+        
             text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            text[num_text].key = "E-mail";
+            char email[] = "E-mail";
+            text[num_text].key = email;
             text[num_text].text = mainprogPointer->email;
             ++num_text;
-        }
-        if (mainprogPointer->have_text & mainprogPointer->url) {
+        
             text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            text[num_text].key = "URL";
+            char url[] = "URL";
+            text[num_text].key = url;
             text[num_text].text = mainprogPointer->url;
             ++num_text;
         }
@@ -323,6 +324,23 @@ int PNGProcessor::writeImage(char* path){
     
     png_set_packing(pngPointer);
     
+    mainprogPointer->png_ptr = pngPointer;
+    mainprogPointer->info_ptr = infoPointer;
+    
+    if (setjmp(mainprogPointer->jmpbuf)) {
+        png_destroy_write_struct(&pngPointer, &infoPointer);
+        mainprogPointer->png_ptr = NULL;
+        mainprogPointer->info_ptr = NULL;
+        return 2;
+    }
+  
+    png_write_image(pngPointer, mainprogPointer->row_pointers);
+  
+    png_write_end(pngPointer, NULL);
+  
+    /***
+     INTERLACING ????
+     */
     
     // Output is 8bit depth, RGBA format.
 //    png_set_IHDR(

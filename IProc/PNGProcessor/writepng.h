@@ -19,12 +19,12 @@ typedef struct _mainprog_info {
     void *info_ptr;
     unsigned char *image_data;
     unsigned char **row_pointers;
-    char *title;
-    char *author;
-    char *desc;
-    char *copyright;
-    char *email;
-    char *url;
+    char *title = 0;
+    char *author = 0;
+    char *desc = 0;
+    char *copyright = 0;
+    char *email = 0;
+    char *url = 0;
     int filter;
     int pnmtype;
     int sample_depth;
