@@ -53,6 +53,20 @@ int IProc::readImage(std::string imgPath){
     return 0;
 }
 
+int IProc::resizeImage(int width, int height){
+    
+    switch(getImageFormat()){
+        case 1:
+            //pngProc.processImage();
+            break;
+        default:
+            fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
+    }
+    return 0;
+}
+
+
+
 int IProc::testMethod(){
     
     std::cout<<"start testing...\n\n";

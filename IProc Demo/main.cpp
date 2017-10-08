@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
     IProc iproc;
     iproc.readImageFormatInfo("png");
     iproc.readImage("imgs/PNG/img1.png");
-    
+    iproc.resizeImage(15,15);
     
     return 0;
 }

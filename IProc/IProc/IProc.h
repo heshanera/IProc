@@ -27,6 +27,8 @@ public:
     
     int readImage(std::string);
     
+    int resizeImage(int, int);
+    
     int testMethod();
     
 private:
