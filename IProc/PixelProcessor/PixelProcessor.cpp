@@ -85,10 +85,28 @@ int PixelProcessor::resize(int width, int height){
 //    }
 }
 
-int PixelProcessor::crop(int x1, int y1, int x2, int y2, int originWidth, int originHeight){
+/**
+ *              col1           col2
+ *      |----------------------------------|
+ * row1 |----------------------------------|
+ *      |----------------------------------|
+ *      |----------------------------------|
+ * row2 |----------------------------------|
+ *      |----------------------------------|
+ * 
+ * @param row1 cropped image top row coordinate
+ * @param col1 cropped image left coordinate         
+ * @param row2 cropped image bottom coordinate
+ * @param col2 cropped image right coordinate 
+ * @param originWidth Original image width
+ * @param originHeight Original image height
+ * @param OriginalArray original pixel array
+ * @return cropped image pixel array
+ */
+int PixelProcessor::crop(int row1, int col1, int row2, int col2, int originWidth, int originHeight, int *OriginalArray){
     
-    int newWidth = x2 - x1;
-    int newHeight = y2 - y1;
+    int newHeight = row2 - row1;
+    int newWidth = col2 - col1;
     int originalArraySize = originWidth * originHeight;
     
     int *newPixelArray;
@@ -97,6 +115,16 @@ int PixelProcessor::crop(int x1, int y1, int x2, int y2, int originWidth, int or
     for ( int i = 0; i < newPixelSize; i++ ) {
         //newPixelArray[i] = 
     }
+    
+//    0  1  2  3   4  5
+//    6  7  8  9  10 11
+//    12 13 14 15 16 17
+//    18 19 20 21 22 23
+//    24 25 26 27 28 29
+//
+//
+//  (originWidth * row1) + col1 + (i % newWidth)
+//    
     
 }
 
