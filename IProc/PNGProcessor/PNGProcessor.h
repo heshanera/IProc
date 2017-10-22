@@ -32,7 +32,6 @@ private:
     png_color_16p pBackground;
     unsigned char *red, *green, *blue;
     double gamma, displayExponent;
-    int *pChannels;
     unsigned char *imageData;
     
 

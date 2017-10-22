@@ -151,14 +151,14 @@ int PNGProcessor::readImage(char* path){
     png_read_update_info(pngPointer, infoPointer);
   
     rowBytes = png_get_rowbytes(pngPointer, infoPointer);
-    *pChannels = (int)png_get_channels(pngPointer, infoPointer);
+    png_byte pChannels = png_get_channels(pngPointer, infoPointer);
   
     if ((imageData = (unsigned char *)malloc(rowBytes*imgHeight)) == NULL) {
         png_destroy_read_struct(&pngPointer, &infoPointer, NULL);
         return -1;
     }
   
-    for (i = 0;  i < imgHeight;  ++i)
+      for (i = 0;  i < imgHeight;  ++i)
         rowPointers[i] = imageData + i*rowBytes;
     
     // read the entire image into the array that allocated
