@@ -87,8 +87,8 @@ int PixelProcessor::resize(int width, int height){
 
 int PixelProcessor::crop(int x1, int y1, int x2, int y2){
     
-//    int newWidth = x2 - x1;
-//    int newHeight = y2 - y1;
+    int newWidth = x2 - x1;
+    int newHeight = y2 - y1;
 //    int originalArraySize = imgWidth * imgHeight;
 //    
 //    int *newPixelArray;
