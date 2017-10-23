@@ -122,8 +122,8 @@ int PixelProcessor::crop(int row1, int col1, int row2, int col2, int originWidth
 //    18 19 20 21 22 23
 //    24 25 26 27 28 29
 //
-//
-//  (originWidth * row1) + col1 + (i % newWidth)
+//  int row = row1 + (int)(i/newWidth);
+//  (originWidth * row) + col1 + (i % newWidth)
 //    
     
 }
