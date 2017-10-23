@@ -19,7 +19,7 @@ public:
     virtual ~PixelProcessor();
     
     int resize(int, int);
-    int crop(int, int, int, int);
+    int crop(int, int, int, int, int, int*);
     int shear();
     int grayScale();
     int rotate();

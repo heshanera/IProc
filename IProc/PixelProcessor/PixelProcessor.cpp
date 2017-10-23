@@ -103,29 +103,19 @@ int PixelProcessor::resize(int width, int height){
  * @param OriginalArray original pixel array
  * @return cropped image pixel array
  */
-int PixelProcessor::crop(int row1, int col1, int row2, int col2, int originWidth, int originHeight, int *OriginalArray){
+int PixelProcessor::crop(int row1, int col1, int row2, int col2, int originWidth, int *OriginalArray){
     
     int newHeight = row2 - row1;
     int newWidth = col2 - col1;
-    int originalArraySize = originWidth * originHeight;
-    
     int *newPixelArray;
     int newPixelSize = newWidth * newHeight;
+    int row, pos;
     newPixelArray = new int[newPixelSize];
     for ( int i = 0; i < newPixelSize; i++ ) {
-        //newPixelArray[i] = 
+        row = row1 + (int)(i/newWidth);
+        pos = (originWidth * row) + col1 + (i % newWidth);
+        newPixelArray[i] = OriginalArray[pos];
     }
-    
-//    0  1  2  3   4  5
-//    6  7  8  9  10 11
-//    12 13 14 15 16 17
-//    18 19 20 21 22 23
-//    24 25 26 27 28 29
-//
-//  int row = row1 + (int)(i/newWidth);
-//  (originWidth * row) + col1 + (i % newWidth)
-//    
-    
 }
 
 int PixelProcessor::shear(){
