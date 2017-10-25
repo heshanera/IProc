@@ -18,11 +18,11 @@ public:
     PixelProcessor(const PixelProcessor& orig);
     virtual ~PixelProcessor();
     
-    int resize(int, int, int, int, int*);
-    int crop(int, int, int, int, int, int*);
-    int shear();
-    int grayScale();
-    int rotate();
+    u_int* resize(int, int, int, int, u_int*);
+    u_int* crop(int, int, int, int, int, u_int*);
+    u_int* shear();
+    u_int* grayScale(int, int, u_int*);
+    u_int* rotate();
     
 private:
     int* pixelArray;
