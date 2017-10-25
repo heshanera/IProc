@@ -131,41 +131,58 @@ u_int* PixelProcessor::shear(){
     
 }
 
+/**
+ * @param originWidth Original image width
+ * @param originHeight Original image height
+ * @param OriginalArray Original pixel array
+ * @return gray pixel array
+ */
 u_int* PixelProcessor::grayScale(int originWidth, int originHeight, u_int* OriginalArray){
     
-    u_int *pntrBWImage=(u_int*) //..data pointer..;  //assumes 4*width*height bytes with 32 bits i.e. 4 bytes per pixel
+    //u_int *pntrBWImage=(u_int*); //..data pointer..;  //assumes 4*width*height bytes with 32 bits i.e. 4 bytes per pixel
     u_int fourBytes;
     u_char r,g,b;
     int arraySize = originWidth * originHeight;
+    
+    u_int *newPixelArray;
+    newPixelArray = new u_int[arraySize];
+    
     for (int i = 0; i < arraySize; i++)
     {
-        fourBytes=pntrBWImage[i];//caches 4 bytes at a time
-        r=(fourBytes>>16);
-        g=(fourBytes>>8);
-        b=fourBytes;
+        fourBytes = OriginalArray[i];//caches 4 bytes at a time
+        r = (fourBytes>>16);
+        g = (fourBytes>>8);
+        b = fourBytes;
     
-        I_Out[i] = (r >>2)+ (g>>1) + (b>>2); //This runs in 0.00065s on my pc and produces slightly darker results
-        //I_Out[index]=((unsigned int)(r+g+b))/3;     //This runs in 0.0011s on my pc and produces a pure average
+        newPixelArray[i] = (r >>2)+ (g>>1) + (b>>2); //This runs in 0.00065s on my pc and produces slightly darker results
+        //newPixelArray[i]=((u_int)(r+g+b))/3;     //This runs in 0.0011s on my pc and produces a pure average
     }
-    /*
-    
-        for (int i = 0; i < NumRow; i++) 
-       { 
-          for (int j = 0; j < numCol; j++) 
-          { 
-             Color c = bmp.GetPixel(j, i);// Extract the color of a pixel 
-             int rd = c.R; int gr = c.G; int bl = c.B;// extract the red,green, blue components from the color.
-             double d1 = 0.2989 * (double)rd + 0.5870 * (double)gr + 0.1140 * (double)bl; 
-             int c1 = (int)Math.Round(d1); 
-             Color c2 = Color.FromArgb(c1, c1, c1);
-             GRAY.SetPixel(j, i, c2);
-          }
-       }
-       
-    */
-    
+    return newPixelArray;
 }
 
 u_int* PixelProcessor::rotate(){
     
+}
+
+/**
+ * 
+ * @param originWidth Original image width
+ * @param originHeight Original image height
+ * @param limit pixel divider boundary
+ * @param OriginalArray Original pixel array
+ * @return binary pixel array
+ */
+u_int* PixelProcessor::binary(int originWidth, int originHeight, int limit, u_int* OriginalArray){
+    
+    int arraySize = originWidth * originHeight;
+    u_int *newPixelArray;
+    newPixelArray = new u_int[arraySize];
+    
+    for (int i = 0; i < arraySize; i++)
+    {
+        if (OriginalArray[i] > limit)
+            newPixelArray[i] = 255;
+        else newPixelArray[i] = 0;
+    }
+    return newPixelArray;
 }

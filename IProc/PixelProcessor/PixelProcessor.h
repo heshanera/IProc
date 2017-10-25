@@ -23,6 +23,7 @@ public:
     u_int* shear();
     u_int* grayScale(int, int, u_int*);
     u_int* rotate();
+    u_int* binary(int, int, int, u_int*);
     
 private:
     int* pixelArray;
