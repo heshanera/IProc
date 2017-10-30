@@ -7,12 +7,18 @@
 
 #include "PNGPixelProcessor.h"
 
-PNGPixelProcessor::PNGPixelProcessor() {
-}
+PNGPixelProcessor::PNGPixelProcessor() { }
 
-PNGPixelProcessor::PNGPixelProcessor(const PNGPixelProcessor& orig) {
-}
+PNGPixelProcessor::PNGPixelProcessor(const PNGPixelProcessor& orig) { }
 
-PNGPixelProcessor::~PNGPixelProcessor() {
-}
+PNGPixelProcessor::~PNGPixelProcessor() { }
 
+u_int* PNGPixelProcessor::resize(int originWidth, int originHeight, int newWidth, int newHeight, u_int *OriginalArray){
+
+    // converting the pixel array
+    
+    
+    // calling the PixelProcessor method
+    PixelProcessor::resize(originWidth, originHeight, newWidth, newHeight, OriginalArray);
+    
+}
