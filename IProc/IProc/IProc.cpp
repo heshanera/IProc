@@ -59,6 +59,7 @@ int IProc::resizeImage(int width, int height){
     switch(getImageFormat()){
         case 1:
             //pngProc.processImage();
+            pngPixProc.resize(pngProc.getWidth(), pngProc.getHeight(), width, height, u_int *OriginalArray);
             break;
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");

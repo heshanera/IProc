@@ -19,6 +19,47 @@ PNGProcessor::~PNGProcessor() {
 
 /**
  * 
+ * @return image height 
+ */
+int PNGProcessor::getHeight(){
+    return (int)(this->imgHeight);
+}
+
+/**
+ * 
+ * @return image width 
+ */
+int PNGProcessor::getWidth(){
+    return (int)(this->imgWidth);
+}
+
+/**
+ * 
+ * @param height of the image
+ * @return 1
+ */
+int PNGProcessor::setHeight(int height){
+    this->imgHeight = (png_uint_32)height;
+    return 1;
+}
+
+/**
+ * 
+ * @param width of the image
+ * @return 1
+ */
+int PNGProcessor::setWidth(int width){
+    this->imgWidth = (png_uint_32)width;
+    return 1;
+}
+
+int PNGProcessor::getPixelArray(){
+    //unsigned char * = png_bytep
+}
+
+
+/**
+ * 
  * prints the version of the libpng
  * @return 0
  *  

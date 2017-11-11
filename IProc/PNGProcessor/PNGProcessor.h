@@ -25,6 +25,13 @@ public:
     int processImage();
     int writeImage(char* path);
     
+    int getWidth();
+    int getHeight();
+    int setWidth(int width);
+    int setHeight(int height);
+    
+    int getPixelArray();
+    
     
 private:
     int colorType, bitDepth;
