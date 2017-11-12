@@ -59,7 +59,7 @@ int IProc::resizeImage(int width, int height){
     switch(getImageFormat()){
         case 1:
             //pngProc.processImage();
-            pngPixProc.resize(pngProc.getWidth(), pngProc.getHeight(), width, height, u_int *OriginalArray);
+            pixProc.resize(pngProc.getWidth(), pngProc.getHeight(), width, height, pngProc.getPixelArray());
             break;
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
@@ -88,6 +88,10 @@ int IProc::writeImage(std::string imgPath){
 int IProc::testMethod(){
     
     std::cout<<"start testing...\n\n";
+    
+    pixProc.resize(pngProc.getWidth(), pngProc.getHeight(), 10, 10, pngProc.getPixelArray());
+    
+    std::cout<<"end testing...\n\n";
     
 //    PNGProcessor pngProc;
 //    pngProc.readPNGVersionInfo();

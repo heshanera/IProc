@@ -13,7 +13,7 @@ PNGPixelProcessor::PNGPixelProcessor(const PNGPixelProcessor& orig) { }
 
 PNGPixelProcessor::~PNGPixelProcessor() { }
 
-u_int* PNGPixelProcessor::resize(int originWidth, int originHeight, int newWidth, int newHeight, u_int *OriginalArray){
+u_int* PNGPixelProcessor::resize(int originWidth, int originHeight, int newWidth, int newHeight, png_bytep *OriginalArray){
 
     // converting the pixel array
     

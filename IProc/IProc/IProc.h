@@ -39,6 +39,8 @@ private:
     PNGProcessor pngProc;
     PNGPixelProcessor pngPixProc;
     JPEGProcessor jpegProc;
+    
+    PixelProcessor pixProc;
    
     int imgType; // [1:png, 2:jpeg, 3:---, 4:---]
 

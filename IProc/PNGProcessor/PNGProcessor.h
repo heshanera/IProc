@@ -30,7 +30,7 @@ public:
     int setWidth(int width);
     int setHeight(int height);
     
-    int getPixelArray();
+    png_bytep* getPixelArray();
     
     
 private:

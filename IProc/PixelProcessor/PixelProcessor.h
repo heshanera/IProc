@@ -19,6 +19,7 @@ public:
     virtual ~PixelProcessor();
     
     u_int* resize(int, int, int, int, u_int*);
+    unsigned char ** resize(int, int, int, int, unsigned char**);
     u_int* crop(int, int, int, int, int, u_int*);
     u_int* shear();
     u_int* grayScale(int, int, u_int*);

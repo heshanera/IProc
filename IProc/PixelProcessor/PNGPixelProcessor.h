@@ -9,6 +9,7 @@
 #define PNGPIXELPROCESSOR_H
 
 #include <sys/types.h>
+#include <png.h>
 #include "PixelProcessor.h"
 
 class PNGPixelProcessor : public PixelProcessor {
@@ -17,7 +18,7 @@ public:
     PNGPixelProcessor(const PNGPixelProcessor& orig);
     virtual ~PNGPixelProcessor();
     
-    u_int* resize(int, int, int, int, u_int*);
+    u_int* resize(int, int, int, int, png_bytep*);
     
 private:
 

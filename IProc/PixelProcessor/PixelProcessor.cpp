@@ -28,7 +28,7 @@ PixelProcessor::~PixelProcessor() { }
  * @return resized pixel array
  */
 u_int* PixelProcessor::resize(int originWidth, int originHeight, int newWidth, int newHeight, u_int *OriginalArray){
-      
+  
     int i;
     int j;
     int l;
@@ -90,6 +90,90 @@ u_int* PixelProcessor::resize(int originWidth, int originHeight, int newWidth, i
             *((u_int*)newPixelArray + (i * newWidth) + j) = (red << 16) | (green << 8) | (blue);       
         }
     }
+    return newPixelArray;
+}
+
+/**
+ * |-------------------------|
+ * |-------------------------|          |------|
+ * |-------------------------|  ==>     |------|
+ * |-------------------------|          |------|
+ * |-------------------------|
+ * 
+ * @param originWidth Original image width
+ * @param originHeight Original image height
+ * @param newWidth new image width
+ * @param newHeight new image height
+ * @param OriginalArray Original pixel Array
+ * @return resized pixel array
+ */
+unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int newWidth, int newHeight, unsigned char **OriginalArray){
+    
+    int i;
+    int j;
+    int l;
+    int c;
+    float t;
+    float u;
+    float tmp;
+    float d1, d2, d3, d4;
+    u_int p1, p2, p3, p4; /* nearby pixels */
+    u_char red, green, blue;
+    
+    unsigned char **newPixelArray;
+    int newPixelSize = newWidth * newHeight;
+    newPixelArray = new unsigned char *[newPixelSize];
+    
+    for (i = 0; i < newHeight; i++) {
+        for (j = 0; j < newWidth; j++) {
+    
+            tmp = (float) (i) / (float) (newHeight - 1) * (originHeight - 1);
+            l = (int) floor(tmp);
+            if (l < 0) {
+                l = 0;
+            } else {
+                if (l >= originHeight - 1) {
+                    l = originHeight - 2;
+                }
+            }
+    
+            u = tmp - l;
+            tmp = (float) (j) / (float) (newWidth - 1) * (originWidth - 1);
+            c = (int) floor(tmp);
+            if (c < 0) {
+                c = 0;
+            } else {
+                if (c >= originWidth - 1) {
+                    c = originWidth - 2;
+                }
+            }
+            t = tmp - c;
+    
+            /* coefficients */
+            d1 = (1 - t) * (1 - u);
+            d2 = t * (1 - u);
+            d3 = t * u;
+            d4 = (1 - t) * u;
+    
+            /* nearby pixels: a[i][j] */
+            p1 = *((u_int*)OriginalArray + (l * originWidth) + c);
+            p2 = *((u_int*)OriginalArray + (l * originWidth) + c + 1);
+            p3 = *((u_int*)OriginalArray + ((l + 1)* originWidth) + c + 1);
+            p4 = *((u_int*)OriginalArray + ((l + 1)* originWidth) + c);
+    
+            /* color components */
+            blue = (u_char)p1 * d1 + (u_char)p2 * d2 + (u_char)p3 * d3 + (u_char)p4 * d4;
+            green = (u_char)(p1 >> 8) * d1 + (u_char)(p2 >> 8) * d2 + (u_char)(p3 >> 8) * d3 + (u_char)(p4 >> 8) * d4;
+            red = (u_char)(p1 >> 16) * d1 + (u_char)(p2 >> 16) * d2 + (u_char)(p3 >> 16) * d3 + (u_char)(p4 >> 16) * d4;
+    
+            /* new pixel R G B  */
+            *((u_int*)newPixelArray + (i * newWidth) + j) = (red << 16) | (green << 8) | (blue);       
+        }
+    }
+    printf("sdkjhdks\n\n");
+    
+    printf("%c",newPixelArray[0][0]);
+    
     return newPixelArray;
 }
 

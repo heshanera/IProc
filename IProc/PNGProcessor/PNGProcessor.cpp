@@ -53,8 +53,12 @@ int PNGProcessor::setWidth(int width){
     return 1;
 }
 
-int PNGProcessor::getPixelArray(){
-    //unsigned char * = png_bytep
+/**
+ * 
+ * @return pixel array
+ */
+png_bytep* PNGProcessor::getPixelArray(){
+    return rowPointers;
 }
 
 
