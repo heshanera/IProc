@@ -124,6 +124,18 @@ unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int n
     int newPixelSize = newWidth * newHeight;
     newPixelArray = new unsigned char *[newPixelSize];
     
+    for(int y = 0; y < originHeight; y++) {
+        unsigned char * row = OriginalArray[y];
+        for(int x = 0; x < originHeight; x++) {
+            unsigned char * px = &(row[x * 4]);
+            // Do something awesome for each pixel here...
+            //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
+            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+            //printf("%4d, %4d\n", x, y);
+            //std::cout<<x<<" "<<y<<"\n";
+        }
+    }
+    
     for (i = 0; i < newHeight; i++) {
         for (j = 0; j < newWidth; j++) {
     
@@ -161,6 +173,9 @@ unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int n
             p3 = *((u_int*)OriginalArray + ((l + 1)* originWidth) + c + 1);
             p4 = *((u_int*)OriginalArray + ((l + 1)* originWidth) + c);
     
+            printf("%3d\n", p1);
+
+            
             /* color components */
             blue = (u_char)p1 * d1 + (u_char)p2 * d2 + (u_char)p3 * d3 + (u_char)p4 * d4;
             green = (u_char)(p1 >> 8) * d1 + (u_char)(p2 >> 8) * d2 + (u_char)(p3 >> 8) * d3 + (u_char)(p4 >> 8) * d4;
@@ -172,7 +187,17 @@ unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int n
     }
     printf("sdkjhdks\n\n");
     
-    printf("%c",newPixelArray[0][0]);
+    for(int y = 0; y < newHeight; y++) {
+        unsigned char * row = newPixelArray[y];
+        for(int x = 0; x < newHeight; x++) {
+            unsigned char * px = &(row[x * 4]);
+            // Do something awesome for each pixel here...
+            //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
+            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+            //printf("%4d, %4d\n", x, y);
+            //std::cout<<x<<" "<<y<<"\n";
+        }
+    }
     
     return newPixelArray;
 }
