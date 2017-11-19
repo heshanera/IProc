@@ -13,6 +13,7 @@
 #include "../PNGProcessor/PNGProcessor.h"
 #include "../JPEGProcessor/JPEGProcessor.h"
 #include "../PixelProcessor/PixelProcessor.h"
+#include "../PixelProcessor/pixel.h"
 
 class IProc {
 public:
@@ -29,6 +30,8 @@ public:
     int writeImage(std::string);
     int writeImage(std::string, std::string);
     
+    RGBApixel getPixel(int,int);
+    int setPixel(int,int,RGBApixel);
     int resizeImage(int, int);
     
     int testMethod();
@@ -39,9 +42,10 @@ private:
     JPEGProcessor jpegProc;
     
     PixelProcessor pixProc;
+    ImageDataStruct imgDataStruct;
    
     int imgType; // [1:png, 2:jpeg, 3:---, 4:---]
-
+    
 };
 
 #endif /* IPROC_H */

@@ -24,7 +24,7 @@ public:
     int readPNGVersionInfo();
     int readImage(char* path);
     int processImage();
-    int writeImage(char* path);
+    int writeImage(char* path,ImageDataStruct);
     
     int getWidth();
     int getHeight();

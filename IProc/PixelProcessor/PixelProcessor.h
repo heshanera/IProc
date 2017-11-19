@@ -21,6 +21,7 @@ public:
     virtual ~PixelProcessor();
     
     RGBApixel getPixel(int x, int y,ImageDataStruct);
+    RGBApixel setPixel(int x, int y,ImageDataStruct);
     
     u_int* resize(int, int, int, int, u_int*);
     unsigned char ** resize(int, int, int, int, unsigned char**);

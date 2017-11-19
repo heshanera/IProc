@@ -6,8 +6,6 @@
  */
 
 #include <iostream>
-#include "../PixelProcessor/pixel.h"
-//#include "../PixelProcessor/PixelProcessor.h"
 #include "IProc.h"
 
 IProc::IProc() { }
@@ -48,12 +46,55 @@ int IProc::readImage(std::string imgPath){
     switch(getImageFormat()){
         case 1:
             pngProc.readImage(path);
+            imgDataStruct = pngProc.getImageDataStruct();
             break;
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
     delete [] path;
     return 0;
+}
+
+int IProc::writeImage(std::string imgPath){
+    
+    char *path = new char[imgPath.length() + 1];
+    strcpy(path, imgPath.c_str());
+    
+    switch(getImageFormat()){
+        case 1:
+            pngProc.writeImage(path,imgDataStruct);
+            break;
+        default:
+            fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
+    }
+    return 0;
+
+}
+
+/**
+ * 
+ * @param x position of pixel
+ * @param y position of pixel
+ * @return RGBApixel data structure
+ */
+RGBApixel IProc::getPixel(int x,int y){
+    
+    RGBApixel pixel;
+    pixel = imgDataStruct.imgPixArray[x+(y*imgDataStruct.imgWidth)];
+    return pixel;
+}
+
+/**
+ * 
+ * @param x position of pixel
+ * @param y position of pixel
+ * @param pixel new pixel to replace with the old pixel in that position
+ * @return 1
+ */
+int IProc::setPixel(int x,int y,RGBApixel pixel){ 
+    
+    imgDataStruct.imgPixArray[x+(y*imgDataStruct.imgWidth)] = pixel;
+    return 1;
 }
 
 int IProc::resizeImage(int width, int height){
@@ -67,32 +108,14 @@ int IProc::resizeImage(int width, int height){
     return 0;
 }
 
-int IProc::writeImage(std::string imgPath){
-    
-    char *path = new char[imgPath.length() + 1];
-    strcpy(path, imgPath.c_str());
-    
-    switch(getImageFormat()){
-        case 1:
-            pngProc.writeImage(path);
-            break;
-        default:
-            fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
-    }
-    return 0;
-
-}
-
-
-
 int IProc::testMethod(){
     
     std::cout<<"start testing...\n\n";
     
 //    pixProc.resize(pngProc.getWidth(), pngProc.getHeight(), 10, 10, pngProc.getPixelArray());
     
-    RGBApixel pix = pixProc.getPixel(5,10,pngProc.getImageDataStruct());
-    printf("%3d\n",pix.r);
+//    RGBApixel pix = pixProc.getPixel(5,10,pngProc.getImageDataStruct());
+//    std::cout<<(int)pix.r;
     
     std::cout<<"end testing...\n\n";
     
