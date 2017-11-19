@@ -13,6 +13,7 @@
 #include <png.h>
 #include "zlib.h"
 #include "writepng.h"
+#include "../PixelProcessor/pixel.h"
 
 class PNGProcessor {
 public:
@@ -32,6 +33,8 @@ public:
     
     png_bytep* getPixelArray();
     
+    int fillRGBApixelArray();
+    
     
 private:
     int colorType, bitDepth;
@@ -40,7 +43,7 @@ private:
     unsigned char *red, *green, *blue;
     double gamma, displayExponent;
     unsigned char *imageData;
-    
+    RGBApixel * rgbaPixArray;
 
 };
 

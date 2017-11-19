@@ -13,6 +13,13 @@ PixelProcessor::PixelProcessor(const PixelProcessor& orig) { }
 
 PixelProcessor::~PixelProcessor() { }
 
+RGBApixel PixelProcessor::getPixel(int x, int y, unsigned char **OriginalArray){
+    
+    RGBApixel pix;
+    return pix;
+    
+}
+
 /**
  * |-------------------------|
  * |-------------------------|          |------|
@@ -124,17 +131,17 @@ unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int n
     int newPixelSize = newWidth * newHeight;
     newPixelArray = new unsigned char *[newPixelSize];
     
-    for(int y = 0; y < originHeight; y++) {
-        unsigned char * row = OriginalArray[y];
-        for(int x = 0; x < originHeight; x++) {
-            unsigned char * px = &(row[x * 4]);
-            // Do something awesome for each pixel here...
-            //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
-            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
-            //printf("%4d, %4d\n", x, y);
-            //std::cout<<x<<" "<<y<<"\n";
-        }
-    }
+//    for(int y = 0; y < newHeight; y++) {
+//        unsigned char * row = OriginalArray[y];
+//        for(int x = 0; x < newHeight; x++) {
+//            unsigned char * px = &(row[x * 4]);
+//            // Do something awesome for each pixel here...
+//            //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
+//            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+//            //printf("%4d, %4d\n", x, y);
+//            //std::cout<<x<<" "<<y<<"\n";
+//        }
+//    }
     
     for (i = 0; i < newHeight; i++) {
         for (j = 0; j < newWidth; j++) {
@@ -165,16 +172,15 @@ unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int n
             d1 = (1 - t) * (1 - u);
             d2 = t * (1 - u);
             d3 = t * u;
-            d4 = (1 - t) * u;
+            d4 = (1 - t) * u;   
     
             /* nearby pixels: a[i][j] */
-            p1 = *((u_int*)OriginalArray + (l * originWidth) + c);
-            p2 = *((u_int*)OriginalArray + (l * originWidth) + c + 1);
-            p3 = *((u_int*)OriginalArray + ((l + 1)* originWidth) + c + 1);
-            p4 = *((u_int*)OriginalArray + ((l + 1)* originWidth) + c);
-    
-            printf("%3d\n", p1);
-
+            p1 = *((u_char*)OriginalArray + (l * originWidth) + c);
+            p2 = *((u_char*)OriginalArray + (l * originWidth) + c + 1);
+            p3 = *((u_char*)OriginalArray + ((l + 1)* originWidth) + c + 1);
+            p4 = *((u_char*)OriginalArray + ((l + 1)* originWidth) + c);
+            
+            printf("%3d %3d %3d %3d\n",d1,d2,d3,d4);
             
             /* color components */
             blue = (u_char)p1 * d1 + (u_char)p2 * d2 + (u_char)p3 * d3 + (u_char)p4 * d4;
@@ -182,22 +188,25 @@ unsigned char ** PixelProcessor::resize(int originWidth, int originHeight, int n
             red = (u_char)(p1 >> 16) * d1 + (u_char)(p2 >> 16) * d2 + (u_char)(p3 >> 16) * d3 + (u_char)(p4 >> 16) * d4;
     
             /* new pixel R G B  */
-            *((u_int*)newPixelArray + (i * newWidth) + j) = (red << 16) | (green << 8) | (blue);       
+            *((u_char*)newPixelArray + (i * newWidth) + j) = (red << 16) | (green << 8) | (blue);
+//            printf("%d, %d := ( %3d %3d %3d )\n",i,j,*((u_char*)newPixelArray + (i * newWidth) + j)>>16,*((u_char*)newPixelArray + (i * newWidth) + j)>>8,*((u_char*)newPixelArray + (i * newWidth) + j));
+//            printf("%3d\n",green);
+        
         }
     }
-    printf("sdkjhdks\n\n");
     
-    for(int y = 0; y < newHeight; y++) {
-        unsigned char * row = newPixelArray[y];
-        for(int x = 0; x < newHeight; x++) {
-            unsigned char * px = &(row[x * 4]);
-            // Do something awesome for each pixel here...
-            //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
-            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
-            //printf("%4d, %4d\n", x, y);
-            //std::cout<<x<<" "<<y<<"\n";
-        }
-    }
+//    for(int y = 0; y < newHeight; y++) {
+//        unsigned char * row = newPixelArray[y];
+//        for(int x = 0; x < newHeight; x++) {
+//            unsigned char * px = &(row[x * 4]);
+//            std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
+//            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+//            printf("%4d, %4d\n", x, y);
+//            std::cout<<x<<" "<<y<<"\n";
+//            printf("%4d, %4d := ( %3d %3d %3d )\n",x,y,*((u_char*)newPixelArray + (x * newWidth) + y)>>16,*((u_char*)newPixelArray + (x * newWidth) + y)>>8,*((u_char*)newPixelArray + (x * newWidth) + y));
+//    
+//        }
+//    }
     
     return newPixelArray;
 }

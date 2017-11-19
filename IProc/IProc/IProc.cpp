@@ -6,6 +6,8 @@
  */
 
 #include <iostream>
+#include "../PixelProcessor/pixel.h"
+//#include "../PixelProcessor/PixelProcessor.h"
 #include "IProc.h"
 
 IProc::IProc() { }
@@ -89,7 +91,9 @@ int IProc::testMethod(){
     
     std::cout<<"start testing...\n\n";
     
-    pixProc.resize(pngProc.getWidth(), pngProc.getHeight(), 10, 10, pngProc.getPixelArray());
+//    pixProc.resize(pngProc.getWidth(), pngProc.getHeight(), 10, 10, pngProc.getPixelArray());
+    
+    RGBApixel pix = pixProc.getPixel(5,10,pngProc.getPixelArray());
     
     std::cout<<"end testing...\n\n";
     
