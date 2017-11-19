@@ -34,6 +34,7 @@ public:
     png_bytep* getPixelArray();
     
     int fillRGBApixelArray();
+    ImageDataStruct getImageDataStruct();
     
     
 private:
@@ -43,7 +44,7 @@ private:
     unsigned char *red, *green, *blue;
     double gamma, displayExponent;
     unsigned char *imageData;
-    RGBApixel * rgbaPixArray;
+    ImageDataStruct imgDataStruct;
 
 };
 

@@ -19,6 +19,12 @@ struct RGBApixel {
     unsigned char a = 0;
 };
 
+struct ImageDataStruct {
+    RGBApixel * imgPixArray;
+    int imgWidth;
+    int imgHeight;
+};
+
 #ifdef __cplusplus
 }
 #endif

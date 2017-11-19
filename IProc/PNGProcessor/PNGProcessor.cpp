@@ -212,6 +212,9 @@ int PNGProcessor::readImage(char* path){
     // checks the remainder of the image for correctness
     png_read_end(pngPointer, NULL);
     
+    // fill the pixel array and create imageDataStruct
+    fillRGBApixelArray();
+    
     return 0;
 }
 
@@ -220,7 +223,6 @@ int PNGProcessor::processImage() {
         png_bytep row = rowPointers[y];
         for(int x = 0; x < imgHeight; x++) {
             png_bytep px = &(row[x * 4]);
-            // Do something awesome for each pixel here...
             //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
             printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
         }
@@ -236,7 +238,10 @@ int PNGProcessor::processImage() {
  */
 int PNGProcessor::fillRGBApixelArray(){
     
-    rgbaPixArray = new RGBApixel[imgHeight*imgWidth];
+    imgDataStruct.imgPixArray = new RGBApixel[imgHeight*imgWidth];
+    imgDataStruct.imgHeight = imgHeight;
+    imgDataStruct.imgWidth = imgWidth;
+            
     int pixPos;
     for(int y = 0; y < imgHeight; y++) {
         png_bytep row = rowPointers[y];
@@ -245,15 +250,19 @@ int PNGProcessor::fillRGBApixelArray(){
             //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
             //printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
             pixPos = x+(y*imgWidth);
-            rgbaPixArray[pixPos].r = px[0];
-            rgbaPixArray[pixPos].g = px[1];
-            rgbaPixArray[pixPos].b = px[2];
-            rgbaPixArray[pixPos].a = px[3];
+            imgDataStruct.imgPixArray[pixPos].r = px[0];
+            imgDataStruct.imgPixArray[pixPos].g = px[1];
+            imgDataStruct.imgPixArray[pixPos].b = px[2];
+            imgDataStruct.imgPixArray[pixPos].a = px[3];
         }
     }
     return 1;
-
 }
+
+ImageDataStruct PNGProcessor::getImageDataStruct(){
+    return this->imgDataStruct;
+}
+
 
 /**
  * 

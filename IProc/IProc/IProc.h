@@ -13,7 +13,6 @@
 #include "../PNGProcessor/PNGProcessor.h"
 #include "../JPEGProcessor/JPEGProcessor.h"
 #include "../PixelProcessor/PixelProcessor.h"
-#include "../PixelProcessor/PNGPixelProcessor.h"
 
 class IProc {
 public:
@@ -37,7 +36,6 @@ public:
 private:
     
     PNGProcessor pngProc;
-    PNGPixelProcessor pngPixProc;
     JPEGProcessor jpegProc;
     
     PixelProcessor pixProc;

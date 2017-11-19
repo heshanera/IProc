@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/IProc/IProc.o \
 	${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o \
 	${OBJECTDIR}/PNGProcessor/PNGProcessor.o \
-	${OBJECTDIR}/PixelProcessor/PNGPixelProcessor.o \
 	${OBJECTDIR}/PixelProcessor/PixelProcessor.o
 
 
@@ -80,11 +79,6 @@ ${OBJECTDIR}/PNGProcessor/PNGProcessor.o: PNGProcessor/PNGProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/PNGProcessor
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PNGProcessor/PNGProcessor.o PNGProcessor/PNGProcessor.cpp
-
-${OBJECTDIR}/PixelProcessor/PNGPixelProcessor.o: PixelProcessor/PNGPixelProcessor.cpp
-	${MKDIR} -p ${OBJECTDIR}/PixelProcessor
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PixelProcessor/PNGPixelProcessor.o PixelProcessor/PNGPixelProcessor.cpp
 
 ${OBJECTDIR}/PixelProcessor/PixelProcessor.o: PixelProcessor/PixelProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/PixelProcessor

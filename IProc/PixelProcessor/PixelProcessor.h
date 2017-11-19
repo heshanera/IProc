@@ -20,7 +20,7 @@ public:
     PixelProcessor(const PixelProcessor& orig);
     virtual ~PixelProcessor();
     
-    RGBApixel getPixel(int x, int y, unsigned char**);
+    RGBApixel getPixel(int x, int y,ImageDataStruct);
     
     u_int* resize(int, int, int, int, u_int*);
     unsigned char ** resize(int, int, int, int, unsigned char**);
@@ -34,7 +34,7 @@ public:
     
 private:
     int* pixelArray;
-    RGBApixel * rgbaPixArray;
+    ImageDataStruct imgDataStruct;
 
 };
 

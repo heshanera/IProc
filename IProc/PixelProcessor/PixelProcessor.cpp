@@ -13,11 +13,8 @@ PixelProcessor::PixelProcessor(const PixelProcessor& orig) { }
 
 PixelProcessor::~PixelProcessor() { }
 
-RGBApixel PixelProcessor::getPixel(int x, int y, unsigned char **OriginalArray){
-    
-    RGBApixel pix;
-    return pix;
-    
+RGBApixel PixelProcessor::getPixel(int x, int y, ImageDataStruct imgDataStruct){
+    return imgDataStruct.imgPixArray[x+(y*imgDataStruct.imgWidth)];
 }
 
 /**
