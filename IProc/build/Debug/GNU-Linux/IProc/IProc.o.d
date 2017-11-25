@@ -4,6 +4,7 @@ build/Debug/GNU-Linux/IProc/IProc.o: IProc/IProc.cpp IProc/IProc.h \
  IProc/../PNGProcessor/writepng.h \
  IProc/../PNGProcessor/../PixelProcessor/pixel.h \
  IProc/../JPEGProcessor/JPEGProcessor.h \
+ IProc/../JPEGProcessor/../PixelProcessor/pixel.h \
  IProc/../PixelProcessor/PixelProcessor.h IProc/../PixelProcessor/pixel.h \
  IProc/../PixelProcessor/pixel.h
 
@@ -22,6 +23,8 @@ IProc/../PNGProcessor/writepng.h:
 IProc/../PNGProcessor/../PixelProcessor/pixel.h:
 
 IProc/../JPEGProcessor/JPEGProcessor.h:
+
+IProc/../JPEGProcessor/../PixelProcessor/pixel.h:
 
 IProc/../PixelProcessor/PixelProcessor.h:
 
