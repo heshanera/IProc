@@ -8,6 +8,10 @@
 #ifndef JPEGPROCESSOR_H
 #define JPEGPROCESSOR_H
 
+#include <stdio.h>
+#include <setjmp.h>
+#include "jpeglib.h"
+
 class JPEGProcessor {
 public:
     JPEGProcessor();
