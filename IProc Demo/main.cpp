@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 
     IProc iproc;
     iproc.readImageFormatInfo("png");
-    iproc.readImage("imgs/PNG/img1.png");
+    iproc.readImage("imgs/PNG/input/img1.png");
     
     // get the pixel in x,y position
     int x = 20, y = 10;
@@ -33,7 +33,6 @@ int main(int argc, char** argv) {
     
     
     // replace the pixel in i,j position
-    
     for(int i = 5; i < 10; i++){
         for(int j = 10; j < 25; j++){
             
@@ -48,9 +47,8 @@ int main(int argc, char** argv) {
         }
     }
     
-//    iproc.setPixel(x,y,pixel);
-    
-    iproc.writeImage("imgs/PNG/imgOut1.png");
+    // write the image with changed pixels
+    iproc.writeImage("imgs/PNG/output/img1.png");
     
     
     iproc.testMethod();

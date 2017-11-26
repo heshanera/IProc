@@ -13,6 +13,22 @@ JPEGProcessor::JPEGProcessor(const JPEGProcessor& orig) { }
 
 JPEGProcessor::~JPEGProcessor() { }
 
+int JPEGProcessor::setHeight(int height) {
+    this->imgHeight = height;
+}
+
+int JPEGProcessor::setWidth(int width) {
+    this->imgWidth = width;
+}
+
+int JPEGProcessor::getHeight() {
+    return this->imgHeight;
+}
+
+int JPEGProcessor::getWidth() {
+    return this->imgWidth;
+}
+
 int JPEGProcessor::readImage(char * filename) {
     
   /* This struct contains the JPEG decompression parameters and pointers to
