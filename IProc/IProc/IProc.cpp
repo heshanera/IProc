@@ -14,13 +14,26 @@ IProc::IProc(const IProc& orig) { }
 
 IProc::~IProc() { }
 
-int IProc::setImageFormat(){
-    this->imgType = 1;
-    return 0;
-}
-
-int IProc::getImageFormat(){
-    return this->imgType;
+/**
+ * 
+ * @param path of the image ( source or the target)
+ * @return an integer according to the image format
+ * 1 : PNG
+ * 2 : JPEG/JPG
+ */
+int IProc::getImageFormat(std::string path){
+    // getting the image type from path (file extension)
+//    switch ("test") {
+//        case "png":
+//            return 1;
+//        case "jpeg":
+//            return 2;
+//        case "jpg":
+//            return 2;
+//        default:
+//            break;
+//    }
+    return 1;
 }
 
 /**
@@ -38,16 +51,18 @@ int IProc::readImageFormatInfo(std::string path){
 
 int IProc::readImage(std::string imgPath){
     
-    setImageFormat();
-    
     char *path = new char[imgPath.length() + 1];
     strcpy(path, imgPath.c_str());
     
-    switch(getImageFormat()){
+    switch(getImageFormat(imgPath)){
         case 1:
             pngProc.readImage(path);
             imgDataStruct = pngProc.getImageDataStruct();
             break;
+        case 2:
+            jpegProc.readImage(path);
+            imgDataStruct = jpegProc.getImageDataStruct();
+            break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
@@ -60,10 +75,13 @@ int IProc::writeImage(std::string imgPath){
     char *path = new char[imgPath.length() + 1];
     strcpy(path, imgPath.c_str());
     
-    switch(getImageFormat()){
+    switch(getImageFormat(imgPath)){
         case 1:
             pngProc.writeImage(path,imgDataStruct);
             break;
+        case 2:
+            jpegProc.writeImage(path,imgDataStruct);
+            break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
@@ -99,7 +117,7 @@ int IProc::setPixel(int x,int y,RGBApixel pixel){
 
 int IProc::resizeImage(int width, int height){
     
-    switch(getImageFormat()){
+    switch(getImageFormat("empty")){
         case 1:
             break;
         default:

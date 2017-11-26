@@ -17,6 +17,9 @@ using namespace std;
 int main(int argc, char** argv) {
 
     IProc iproc;
+    
+    /***** PNG images *****/
+    
     iproc.readImageFormatInfo("png");
     iproc.readImage("imgs/PNG/input/img1.png");
     
@@ -49,6 +52,10 @@ int main(int argc, char** argv) {
     
     // write the image with changed pixels
     iproc.writeImage("imgs/PNG/output/img1.png");
+    
+    /***** JPEG images *****/
+    
+//    iproc.readImage("imgs/JPEG/input/img1.jpg");
     
     
     iproc.testMethod();

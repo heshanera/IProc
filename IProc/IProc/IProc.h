@@ -23,8 +23,7 @@ public:
     
     int readImageFormatInfo(std::string);
     
-    int setImageFormat();
-    int getImageFormat();
+    int getImageFormat(std::string);
     
     int readImage(std::string);
     int writeImage(std::string);
@@ -40,11 +39,8 @@ private:
     
     PNGProcessor pngProc;
     JPEGProcessor jpegProc;
-    
     PixelProcessor pixProc;
     ImageDataStruct imgDataStruct;
-   
-    int imgType; // [1:png, 2:jpeg, 3:---, 4:---]
     
 };
 

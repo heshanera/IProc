@@ -155,7 +155,7 @@ int JPEGProcessor::readImage(char * filename) {
 }
 
 
-int JPEGProcessor::writeImage (char * filename) {
+int JPEGProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) {
   
   int quality = 0;  
     
@@ -275,6 +275,10 @@ void JPEGProcessor::error_exit (j_common_ptr cinfo) {
 
     /* Return control to the setjmp point */
     longjmp(error_ptr->setjmp_buffer, 1);
+}
+
+ImageDataStruct JPEGProcessor::getImageDataStruct(){
+    return this->imgDataStruct;
 }
 
 

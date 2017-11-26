@@ -272,10 +272,10 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
         for(int x = 0; x < imgHeight; x++) {
             png_bytep px = &(row[x * 4]);
             pixPos = x+(y*imgWidth);
-            px[0] = imgDataStruct.imgPixArray[pixPos].r;
-            px[1] = imgDataStruct.imgPixArray[pixPos].g;
-            px[2] = imgDataStruct.imgPixArray[pixPos].b;
-            px[3] = imgDataStruct.imgPixArray[pixPos].a;
+            px[0] = imageDataStruct.imgPixArray[pixPos].r;
+            px[1] = imageDataStruct.imgPixArray[pixPos].g;
+            px[2] = imageDataStruct.imgPixArray[pixPos].b;
+            px[3] = imageDataStruct.imgPixArray[pixPos].a;
         }
     }
     
