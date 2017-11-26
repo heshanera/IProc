@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     iproc.readImage("imgs/PNG/img1.png");
     
     // get the pixel in x,y position
-    int x = 10, y = 20;
+    int x = 20, y = 10;
     RGBApixel pixel = iproc.getPixel(x,y);
     std::cout   <<"Img("<<x<<","<<y<<") = "
                 <<"RGBA( "
@@ -32,12 +32,23 @@ int main(int argc, char** argv) {
                 <<")\n";
     
     
-    // replace the pixel in x,y position
-    pixel.r = 1;
-    pixel.g = 2;
-    pixel.b = 3;
-    pixel.a = 4;
-    iproc.setPixel(x,y,pixel);
+    // replace the pixel in i,j position
+    
+    for(int i = 5; i < 10; i++){
+        for(int j = 10; j < 25; j++){
+            
+            RGBApixel pixel1 = iproc.getPixel(i,j);
+            
+            pixel1.r = 100;
+            pixel1.g = 200;
+            pixel1.b = 100;
+            pixel1.a = 255;
+            
+            iproc.setPixel(i,j,pixel1);
+        }
+    }
+    
+//    iproc.setPixel(x,y,pixel);
     
     iproc.writeImage("imgs/PNG/imgOut1.png");
     

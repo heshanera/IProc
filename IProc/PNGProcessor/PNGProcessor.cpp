@@ -243,167 +243,56 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
         NULL,    
         NULL
     );
-    if (!pngPointer)
-        fclose(outfile);
-        return 4;  // out of memory //
-
+    
+    pngPointer = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!pngPointer) abort();
+    
     infoPointer = png_create_info_struct(pngPointer);
-    if (!infoPointer) 
-        png_destroy_write_struct(&pngPointer, NULL);
-        fclose(outfile);
-        return 4;
-
-    //if (setjmp(png_jmpbuf(pngPointer))) abort();
+    if (!infoPointer) abort();
     
-    // handle libpng errors
-    if(setjmp(png_jmpbuf(pngPointer))){
-        png_destroy_write_struct(&pngPointer, &infoPointer);
-        fclose(outfile);
-        return 2;
-    }
-
-    png_init_io(pngPointer, mainprogPointer->outfile);
-    png_set_compression_level(pngPointer, Z_BEST_COMPRESSION);
-
-    int color_type, interlace_type;
-  
-    if (mainprogPointer->pnmtype == 5)
-        color_type = PNG_COLOR_TYPE_GRAY;
-    else if (mainprogPointer->pnmtype == 6)
-        color_type = PNG_COLOR_TYPE_RGB;
-    else if (mainprogPointer->pnmtype == 8)
-        color_type = PNG_COLOR_TYPE_RGB_ALPHA;
-    else {
-        png_destroy_write_struct(&pngPointer, &infoPointer);
-        return 11;
-    }
-  
-    interlace_type = mainprogPointer->interlaced? PNG_INTERLACE_ADAM7 : PNG_INTERLACE_NONE;
+    if (setjmp(png_jmpbuf(pngPointer))) abort();
     
-    png_set_IHDR(
-        pngPointer, 
-        infoPointer, 
-        mainprogPointer->width,
-        mainprogPointer->height, 
-        mainprogPointer->sample_depth,
-        color_type, 
-        interlace_type,
-        PNG_COMPRESSION_TYPE_DEFAULT, 
-        PNG_FILTER_TYPE_DEFAULT
-    );
-    
-    if (mainprogPointer->gamma > 0.0)
-        png_set_gAMA(pngPointer, infoPointer, mainprogPointer->gamma);
-  
-    if (mainprogPointer->have_bg) {
-        png_color_16  background;
-  
-        background.red = mainprogPointer->bg_red;
-        background.green = mainprogPointer->bg_green;
-        background.blue = mainprogPointer->bg_blue;
-        png_set_bKGD(pngPointer, infoPointer, &background);
-    }
-  
-    if (mainprogPointer->have_time) {
-        png_time  modtime;
-  
-        png_convert_from_time_t(&modtime, mainprogPointer->modtime);
-        png_set_tIME(pngPointer, infoPointer, &modtime);
-    }
-    
-    if (mainprogPointer->have_text) {
-        png_text text[6];
-        int  num_text = 0;
-  
-        if (mainprogPointer->have_text) {
-            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            char title[] = "Title";
-            text[num_text].key = title;
-            text[num_text].text = mainprogPointer->title;
-            ++num_text;
-        
-            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            char author[] = "Author";
-            text[num_text].key = author;
-            text[num_text].text = mainprogPointer->author;
-            ++num_text;
-        
-            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            char desc[] = "Description";
-            text[num_text].key = desc;
-            text[num_text].text = mainprogPointer->desc;
-            ++num_text;
-        
-            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            char copyright[] = "Copyright";
-            text[num_text].key = copyright;
-            text[num_text].text = mainprogPointer->copyright;
-            ++num_text;
-        
-            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            char email[] = "E-mail";
-            text[num_text].key = email;
-            text[num_text].text = mainprogPointer->email;
-            ++num_text;
-        
-            text[num_text].compression = PNG_TEXT_COMPRESSION_NONE;
-            char url[] = "URL";
-            text[num_text].key = url;
-            text[num_text].text = mainprogPointer->url;
-            ++num_text;
-        }
-        png_set_text(pngPointer, infoPointer, text, num_text);
-    }
-
-    png_write_info(pngPointer, infoPointer);
-    
-    png_set_packing(pngPointer);
-    
-    mainprogPointer->png_ptr = pngPointer;
-    mainprogPointer->info_ptr = infoPointer;
-    
-    if (setjmp(mainprogPointer->jmpbuf)) {
-        png_destroy_write_struct(&pngPointer, &infoPointer);
-        mainprogPointer->png_ptr = NULL;
-        mainprogPointer->info_ptr = NULL;
-        return 2;
-    }
-  
-    png_write_image(pngPointer, mainprogPointer->row_pointers);
-  
-    png_write_end(pngPointer, NULL);
-  
-    /***
-     INTERLACING ????
-     */
+    png_init_io(pngPointer, outfile);
     
     // Output is 8bit depth, RGBA format.
-//    png_set_IHDR(
-//        pngPointer,
-//        infoPointer,
-//        imgWidth, imgHeight,
-//        8,
-//        PNG_COLOR_TYPE_RGBA,
-//        PNG_INTERLACE_NONE,
-//        PNG_COMPRESSION_TYPE_DEFAULT,
-//        PNG_FILTER_TYPE_DEFAULT
-//    );
-//    
-//    png_write_info(pngPointer, infoPointer);
-//
-//    // To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
-//    // Use png_set_filler().
-//    //png_set_filler(png, 0, PNG_FILLER_AFTER);
-//
-//    png_write_image(pngPointer, rowPointers);
-//    png_write_end(pngPointer, NULL);
-//
+    png_set_IHDR(
+      pngPointer,
+      infoPointer,
+      imgWidth, imgHeight,
+      8,
+      PNG_COLOR_TYPE_RGBA,
+      PNG_INTERLACE_NONE,
+      PNG_COMPRESSION_TYPE_DEFAULT,
+      PNG_FILTER_TYPE_DEFAULT
+    );
+    
+    int pixPos;
+    for(int y = 0; y < imgHeight; y++) {
+        png_bytep row = rowPointers[y];
+        for(int x = 0; x < imgHeight; x++) {
+            png_bytep px = &(row[x * 4]);
+            pixPos = x+(y*imgWidth);
+            px[0] = imgDataStruct.imgPixArray[pixPos].r;
+            px[1] = imgDataStruct.imgPixArray[pixPos].g;
+            px[2] = imgDataStruct.imgPixArray[pixPos].b;
+            px[3] = imgDataStruct.imgPixArray[pixPos].a;
+        }
+    }
+    
+    png_write_info(pngPointer, infoPointer);
+    
+    png_write_image(pngPointer, rowPointers);
+    png_write_end(pngPointer, NULL);
+
 //    for(int y = 0; y < imgHeight; y++) {
-//      free(rowPointers[y]);
+//        free(rowPointers[y]);
 //    }
-//    
-//    fclose(outfile);
-//    return 0;
+    
+    if (pngPointer && infoPointer) png_destroy_write_struct(&pngPointer, &infoPointer);
+    free(rowPointers);
+    fclose(outfile);
+  
+    return 0;
 }
 
 /**
