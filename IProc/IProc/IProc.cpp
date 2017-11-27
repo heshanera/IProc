@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <algorithm>
 #include "IProc.h"
 
 IProc::IProc() { }
@@ -23,17 +24,15 @@ IProc::~IProc() { }
  */
 int IProc::getImageFormat(std::string path){
     // getting the image type from path (file extension)
-//    switch ("test") {
-//        case "png":
-//            return 1;
-//        case "jpeg":
-//            return 2;
-//        case "jpg":
-//            return 2;
-//        default:
-//            break;
-//    }
-    return 1;
+    std::string extension;
+    extension = path.substr(path.find_last_of(".") + 1);
+    std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+    
+    if (extension == "png") return 1;
+    else if (extension == "jpeg") return 2;
+    else if (extension == "jpg") return 2;
+    else return 0;
+    
 }
 
 /**
