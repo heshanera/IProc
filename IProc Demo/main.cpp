@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
     
     /***** JPEG images *****/
     
-    iproc.readImage("imgs/JPEG/input/img1.jpg");
+    iproc.readImage("imgs/JPEG/input/img5.jpg");
     
     
     iproc.testMethod();

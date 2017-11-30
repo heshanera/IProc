@@ -70,58 +70,58 @@ int JPEGProcessor::readImage(char * filename) {
     /* Start decompressor */
     (void) jpeg_start_decompress(&cinfo);
 
-    /* We may need to do some setup of our own at this point before reading
-     * the data.  After jpeg_start_decompress() we have the correct scaled
-     * output image dimensions available, as well as the output colormap
-     * if we asked for color quantization.
-     * In this example, we need to make an output work buffer of the right size.
-     */ 
     /* JSAMPLEs per row in output buffer */
     row_stride = cinfo.output_width * cinfo.output_components;
     /* Make a one-row-high sample array that will go away when done with image */
     buffer = (*cinfo.mem->alloc_sarray)((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
 
-  /* Step 6: while (scan lines remain to be read) */
-  /*           jpeg_read_scanlines(...); */
+    /* Step 6: while (scan lines remain to be read) */
+    /*           jpeg_read_scanlines(...); */
 
-  /* Here we use the library's state variable cinfo.output_scanline as the
-   * loop counter, so that we don't have to keep track ourselves.
-   */
-  while (cinfo.output_scanline < cinfo.output_height) {
-    /* jpeg_read_scanlines expects an array of pointers to scanlines.
-     * Here the array is only one element long, but you could ask for
-     * more than one scanline at a time if that's more convenient.
+    /* Here we use the library's state variable cinfo.output_scanline as the
+     * loop counter, so that we don't have to keep track ourselves.
      */
-    (void) jpeg_read_scanlines(&cinfo, buffer, 1);
-    /* Assume put_scanline_someplace wants a pointer and sample count. */
-//    put_scanline_someplace(buffer[0], row_stride);
-  }
+    int height = 0;
+    while (cinfo.output_scanline < cinfo.output_height) {
+        /* jpeg_read_scanlines expects an array of pointers to scanlines.
+         * Here the array is only one element long, but you could ask for
+         * more than one scanline at a time if that's more convenient.
+         */
+        (void) jpeg_read_scanlines(&cinfo, buffer, 1);
 
-  /* Step 7: Finish decompression */
+        /* Assume put_scanline_someplace wants a pointer and sample count. */
+//        put_scanline_someplace(buffer[0], row_stride);
+        
+//        for(int i = 0; i < row_stride; i++){
+//            std::cout<<"("<<height<<","<<i<<")"<<(int)buffer[height][i]<<" ";
+//        }
+//        height++;
+//        std::cout<<"\n";
+    }
+    
+    int size = cinfo.output_height * cinfo.output_width;
+    for(int i = 0; i < size; i++){
+//        std::cout<<"("<<0<<","<<i<<")"<<(int)buffer[0][i]<<"\n";
+//        std::cout<<buffer[0][i];
+        buffer[0][i];
+//        std::cout<<buffer[0][i];
+    }
+    
+    std::cout<<row_stride<<"\n";
+//    std::cout<<cinfo.output_height<<"\n";
+//    std::cout<<cinfo.output_width<<"\n";
+//    
+//    std::cout<<cinfo.output_scanline<<"\n";
 
-  (void) jpeg_finish_decompress(&cinfo);
-  /* We can ignore the return value since suspension is not possible
-   * with the stdio data source.
-   */
+    /* Step 7: Finish decompression */
 
-  /* Step 8: Release JPEG decompression object */
+    (void) jpeg_finish_decompress(&cinfo);
 
-  /* This is an important step since it will release a good deal of memory. */
-  jpeg_destroy_decompress(&cinfo);
+    jpeg_destroy_decompress(&cinfo);
 
-  /* After finish_decompress, we can close the input file.
-   * Here we postpone it until after no more JPEG errors are possible,
-   * so as to simplify the setjmp error logic above.  (Actually, I don't
-   * think that jpeg_destroy can do an error exit, but why assume anything...)
-   */
-  fclose(infile);
+    fclose(infile);
 
-  /* At this point you may want to check to see whether any corrupt-data
-   * warnings occurred (test whether jerr.pub.num_warnings is nonzero).
-   */
-
-  /* And we're done! */
-  return 1;
+    return 1;
 }
 
 
