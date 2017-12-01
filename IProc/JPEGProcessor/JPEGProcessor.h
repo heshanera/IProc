@@ -27,7 +27,7 @@ public:
     int setWidth(int width);
     int setHeight(int height);
     
-    int fillRGBApixelArray(JSAMPARRAY buffer);
+    int fillRGBApixelArray(JSAMPARRAY buffer, int pixPos, int row_stride);
     ImageDataStruct getImageDataStruct();
     
     void error_exit(j_common_ptr);

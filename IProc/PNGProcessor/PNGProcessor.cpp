@@ -258,7 +258,7 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     png_set_IHDR(
       pngPointer,
       infoPointer,
-      imgWidth, imgHeight,
+      imageDataStruct.imgWidth, imageDataStruct.imgHeight,
       8,
       PNG_COLOR_TYPE_RGBA,
       PNG_INTERLACE_NONE,
@@ -267,11 +267,11 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     );
     
     int pixPos;
-    for(int y = 0; y < imgHeight; y++) {
+    for(int y = 0; y < imageDataStruct.imgHeight; y++) {
         png_bytep row = rowPointers[y];
-        for(int x = 0; x < imgHeight; x++) {
+        for(int x = 0; x < imageDataStruct.imgHeight; x++) {
             png_bytep px = &(row[x * 4]);
-            pixPos = x+(y*imgWidth);
+            pixPos = x+(y*imageDataStruct.imgWidth);
             px[0] = imageDataStruct.imgPixArray[pixPos].r;
             px[1] = imageDataStruct.imgPixArray[pixPos].g;
             px[2] = imageDataStruct.imgPixArray[pixPos].b;

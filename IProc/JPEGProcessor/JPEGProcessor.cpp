@@ -46,7 +46,6 @@ int JPEGProcessor::readImage(char * filename) {
 
     /* set up the normal JPEG error routines, then override error_exit. */
     cinfo.err = jpeg_std_error(&jerr.pub);
-//  jerr.pub.error_exit = error_exit;
     
     /* Establish the setjmp return context for error_exit to use. */
     if (setjmp(jerr.setjmp_buffer)) {
@@ -68,20 +67,25 @@ int JPEGProcessor::readImage(char * filename) {
 
     /* Start decompressor */
     (void) jpeg_start_decompress(&cinfo);
+    
+    setWidth(cinfo.output_width);
+    setHeight(cinfo.output_height);
 
     /* JSAMPLEs per row in output buffer */
     row_stride = cinfo.output_width * cinfo.output_components;
     /* Make a one-row-high sample array that will go away when done with image */
     buffer = (*cinfo.mem->alloc_sarray)((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
     
+    imgDataStruct.imgPixArray = new RGBApixel[imgHeight*imgWidth];
+    imgDataStruct.imgHeight = imgHeight;
+    imgDataStruct.imgWidth = imgWidth;
+    
+    int pixPos = 0;
     while (cinfo.output_scanline < cinfo.output_height) {
         (void) jpeg_read_scanlines(&cinfo, buffer, 1);
+        fillRGBApixelArray(buffer, pixPos, row_stride);
+        pixPos+=cinfo.output_width;
     }
-    
-    setWidth(cinfo.output_width);
-    setHeight(cinfo.output_height);
-    
-    fillRGBApixelArray(buffer);
     
     /* Finish decompression */
     (void) jpeg_finish_decompress(&cinfo);
@@ -141,7 +145,6 @@ int JPEGProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct)
         buffer[bufferPos+1] = imageDataStruct.imgPixArray[pixPos].g;
         buffer[bufferPos+2] = imageDataStruct.imgPixArray[pixPos].b;
         bufferPos += 3;
-//        std::cout<<"("<<(int)buffer[pixPos]<<" "<<(int)buffer[pixPos+1]<<" "<<(int)buffer[pixPos+2]<<")\n";
     }
   
     while (cinfo.next_scanline < cinfo.image_height) {
@@ -170,20 +173,14 @@ ImageDataStruct JPEGProcessor::getImageDataStruct(){
     return this->imgDataStruct;
 }
 
-int JPEGProcessor::fillRGBApixelArray(JSAMPARRAY buffer){
-    imgDataStruct.imgPixArray = new RGBApixel[imgHeight*imgWidth];
-    imgDataStruct.imgHeight = imgHeight;
-    imgDataStruct.imgWidth = imgWidth;
-            
-    int RGBpixels = imgHeight * imgWidth;
-    int bufferPos = 0;
-    for(int pixPos = 0; pixPos < RGBpixels; pixPos++){
-//        std::cout<<"("<<(int)buffer[0][pixPos]<<" "<<(int)buffer[0][pixPos+1]<<" "<<(int)buffer[0][pixPos+2]<<")\n";
-        imgDataStruct.imgPixArray[pixPos].r = buffer[0][bufferPos];
-        imgDataStruct.imgPixArray[pixPos].g = buffer[0][bufferPos+1];
-        imgDataStruct.imgPixArray[pixPos].b = buffer[0][bufferPos+2];
+int JPEGProcessor::fillRGBApixelArray(JSAMPARRAY buffer, int pixPos, int row_stride){
+    
+    for(int i = 0; i < row_stride; i+=3){
+        imgDataStruct.imgPixArray[pixPos].r = (int)buffer[0][i];
+        imgDataStruct.imgPixArray[pixPos].g = (int)buffer[0][i+1];
+        imgDataStruct.imgPixArray[pixPos].b = (int)buffer[0][i+2];
         imgDataStruct.imgPixArray[pixPos].a = 255;
-        bufferPos += 3;
+        pixPos++;
     }
     return 1;
 }
