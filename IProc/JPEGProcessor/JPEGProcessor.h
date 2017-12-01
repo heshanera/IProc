@@ -39,7 +39,7 @@ public:
     
 private:
     int imgHeight,imgWidth;
-    JSAMPLE * image_buffer;
+//    JSAMPLE * image_buffer;
     ImageDataStruct imgDataStruct;
     error_mgr * error_ptr;
 
