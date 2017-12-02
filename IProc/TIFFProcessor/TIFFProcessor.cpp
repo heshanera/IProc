@@ -81,8 +81,41 @@ int TIFFProcessor::readImage(char * filename) {
  */
 int TIFFProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) {
   
-    TIFF* tif = TIFFOpen("foo.tif", "w");
-    TIFFClose(tif);
+    TIFF* tif = TIFFOpen(filename, "w");
+    
+    if(tif){
+        uint32 imagelength, imagewidth;
+        uint8 * buf;
+        uint32 row, col;
+        uint16 config, nsamples;
+        imagewidth = imageDataStruct.imgWidth ;
+        imagelength = imageDataStruct.imgHeight ;
+        config = PLANARCONFIG_CONTIG ;
+        nsamples = 4;
+
+        TIFFSetField(tif, TIFFTAG_IMAGELENGTH, imagelength);
+        TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, imagewidth);
+        TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, nsamples);
+        TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+        TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_LZW) ;
+        TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8) ;
+        TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tif, imagewidth*nsamples));
+
+        int pixPos = 0;
+        buf = new uint8 [imagewidth*nsamples] ;
+        for (row = 0; row < imagelength; row++){
+            for(col=0; col < imagewidth; col++){
+                buf[col*nsamples+0] = static_cast<uint8> (imageDataStruct.imgPixArray[pixPos].r);
+                buf[col*nsamples+1] = static_cast<uint8> (imageDataStruct.imgPixArray[pixPos].g);
+                buf[col*nsamples+2] = static_cast<uint8> (imageDataStruct.imgPixArray[pixPos].b);
+                buf[col*nsamples+3] = static_cast<uint8> (imageDataStruct.imgPixArray[pixPos].a);
+                pixPos++;
+            }
+            if (TIFFWriteScanline(tif, buf, row) != 1 ) break;
+        }
+        _TIFFfree(buf);
+        TIFFClose(tif);
+    }
     
     return 1;
 }
@@ -107,10 +140,13 @@ int TIFFProcessor::fillRGBApixelArray(uint32* raster, int npixels){
     imgDataStruct.imgWidth = imgWidth;
     
     for(int pixPos = 0; pixPos < npixels; pixPos++){
-        for(int i = 0; i < 4; i++){
-            raster[pixPos] & 0xFF;
-            raster[pixPos] >>= 8;
-        }
+        imgDataStruct.imgPixArray[pixPos].r = raster[pixPos] & 0xFF;
+        raster[pixPos] >>= 8;
+        imgDataStruct.imgPixArray[pixPos].g = raster[pixPos] & 0xFF;
+        raster[pixPos] >>= 8;
+        imgDataStruct.imgPixArray[pixPos].b = raster[pixPos] & 0xFF;
+        raster[pixPos] >>= 8;
+        imgDataStruct.imgPixArray[pixPos].a = raster[pixPos] & 0xFF;  
     }
     return 1;
 }
