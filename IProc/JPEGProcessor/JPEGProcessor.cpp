@@ -5,7 +5,6 @@
  * Created on October 5, 2017, 4:02 PM
  */
 
-#include <iostream>
 #include "JPEGProcessor.h"
 
 JPEGProcessor::JPEGProcessor() { }
@@ -14,22 +13,42 @@ JPEGProcessor::JPEGProcessor(const JPEGProcessor& orig) { }
 
 JPEGProcessor::~JPEGProcessor() { }
 
+/**
+ * @param height of the image
+ * @return 1 
+ */
 int JPEGProcessor::setHeight(int height) {
     this->imgHeight = height;
+    return 1;
 }
 
+/**
+ * @param width of the image
+ * @return 1
+ */
 int JPEGProcessor::setWidth(int width) {
     this->imgWidth = width;
+    return 1;
 }
 
+/**
+ * @return height of the image 
+ */
 int JPEGProcessor::getHeight() {
     return this->imgHeight;
 }
 
+/**
+ * @return width of the image 
+ */
 int JPEGProcessor::getWidth() {
     return this->imgWidth;
 }
 
+/**
+ * @param filename the path to the image
+ * @return 1 if read the image without any errors
+ */
 int JPEGProcessor::readImage(char * filename) {
   
     struct jpeg_decompress_struct cinfo;
@@ -97,6 +116,11 @@ int JPEGProcessor::readImage(char * filename) {
     return 1;
 }
 
+/**
+ * @param filename target fie path
+ * @param imageDataStruct pixel array of the image to be written
+ * @return 1 if write the image without any errors
+ */
 int JPEGProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) {
   
     int quality = 100;  
@@ -161,17 +185,28 @@ int JPEGProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct)
     return 1;
 }
 
-
+/**
+ * @param cinfo
+ */
 void JPEGProcessor::error_exit (j_common_ptr cinfo) {
     (*cinfo->err->output_message) (cinfo);
     /* Return control to the setjmp point */
     longjmp(error_ptr->setjmp_buffer, 1);
 }
 
+/**
+ * @return ImageDataStruct that contains pixel array and image meta data 
+ */
 ImageDataStruct JPEGProcessor::getImageDataStruct(){
     return this->imgDataStruct;
 }
 
+/**
+ * @param buffer that contains decompressed image pixels 
+ * @param pixPos pixel position
+ * @param row_stride physical row width in image buffer 
+ * @return 1 
+ */
 int JPEGProcessor::fillRGBApixelArray(JSAMPARRAY buffer, int pixPos, int row_stride){
     
     for(int i = 0; i < row_stride; i+=3){

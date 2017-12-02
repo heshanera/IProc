@@ -18,7 +18,6 @@ PNGProcessor::~PNGProcessor() {
 }
 
 /**
- * 
  * @return image height 
  */
 int PNGProcessor::getHeight(){
@@ -26,7 +25,6 @@ int PNGProcessor::getHeight(){
 }
 
 /**
- * 
  * @return image width 
  */
 int PNGProcessor::getWidth(){
@@ -34,7 +32,6 @@ int PNGProcessor::getWidth(){
 }
 
 /**
- * 
  * @param height of the image
  * @return 1
  */
@@ -44,7 +41,6 @@ int PNGProcessor::setHeight(int height){
 }
 
 /**
- * 
  * @param width of the image
  * @return 1
  */
@@ -54,7 +50,6 @@ int PNGProcessor::setWidth(int width){
 }
 
 /**
- * 
  * @return pixel array
  */
 png_bytep* PNGProcessor::getPixelArray(){
@@ -63,10 +58,8 @@ png_bytep* PNGProcessor::getPixelArray(){
 
 
 /**
- * 
  * prints the version of the libpng
- * @return 0
- *  
+ * @return 0 
  */
 int PNGProcessor::readPNGVersionInfo(){
     
@@ -302,9 +295,7 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
 }
 
 /**
- * 
  * fill the RGBAPixel array
- * 
  * @return 1
  */
 int PNGProcessor::fillRGBApixelArray(){

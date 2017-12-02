@@ -8,12 +8,29 @@
 #ifndef TIFFPROCESSOR_H
 #define TIFFPROCESSOR_H
 
+#include <stdio.h>
+#include "../PixelProcessor/pixel.h"
+
 class TIFFProcessor {
 public:
     TIFFProcessor();
     TIFFProcessor(const TIFFProcessor& orig);
     virtual ~TIFFProcessor();
+    
+    int readImage(char* path);
+    int writeImage(char* path,ImageDataStruct);
+    
+    int getWidth();
+    int getHeight();
+    int setWidth(int width);
+    int setHeight(int height);
+    
+    int fillRGBApixelArray();
+    ImageDataStruct getImageDataStruct();
+    
 private:
+    int imgHeight,imgWidth;
+    ImageDataStruct imgDataStruct;
 
 };
 

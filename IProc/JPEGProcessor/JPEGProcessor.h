@@ -9,6 +9,7 @@
 #define JPEGPROCESSOR_H
 
 #include <stdio.h>
+#include <iostream>
 #include <setjmp.h>
 #include "jpeglib.h"
 #include "../PixelProcessor/pixel.h"
@@ -39,7 +40,6 @@ public:
     
 private:
     int imgHeight,imgWidth;
-//    JSAMPLE * image_buffer;
     ImageDataStruct imgDataStruct;
     error_mgr * error_ptr;
 
