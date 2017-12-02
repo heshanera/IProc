@@ -87,6 +87,7 @@ int PNGProcessor::readImage(char* path){
     
     png_structp pngPointer;
     png_infop infoPointer;
+    unsigned char *imageData;
     
     FILE *infile = fopen(path, "rb");
     
@@ -163,10 +164,6 @@ int PNGProcessor::readImage(char* path){
         png_set_expand(pngPointer);
     if (png_get_valid(pngPointer, infoPointer, PNG_INFO_tRNS))
         png_set_expand(pngPointer);
-    
-    // These functions are FICTITIOUS!  They DO NOT EXIST in any
-    // version of libpng to date (through 1.0.3). 
-    // these will be accepted for libpng version 1.0.4 (and later).
     if (colorType == PNG_COLOR_TYPE_PALETTE)
         png_set_palette_to_rgb(pngPointer);
     if (colorType == PNG_COLOR_TYPE_GRAY && bitDepth < 8)
@@ -203,7 +200,7 @@ int PNGProcessor::readImage(char* path){
         return -1;
     }
   
-      for (i = 0;  i < imgHeight;  ++i)
+    for (i = 0;  i < imgHeight;  ++i)
         rowPointers[i] = imageData + i*rowBytes;
     
     // read the entire image into the array that allocated
@@ -231,6 +228,8 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     mainprog_info *mainprogPointer;
     png_structp pngPointer;
     png_infop infoPointer;
+    unsigned char *imageData;
+    int rowBytes;
 
     FILE *outfile = fopen(path, "wb");
     
@@ -266,8 +265,20 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
       PNG_FILTER_TYPE_DEFAULT
     );
     
+    rowPointers = new png_bytep[imageDataStruct.imgHeight];
+    rowBytes = png_get_rowbytes(pngPointer, infoPointer);
+    
+    if ((imageData = (unsigned char *)malloc(rowBytes*imageDataStruct.imgHeight)) == NULL) {
+        png_destroy_read_struct(&pngPointer, &infoPointer, NULL);
+        return -1;
+    }
+  
+    for (int i = 0;  i < imageDataStruct.imgHeight;  ++i)
+        rowPointers[i] = imageData + i*rowBytes;
+    
     int pixPos;
     for(int y = 0; y < imageDataStruct.imgHeight; y++) {
+//        rowPointers[y] = new png_byte[imageDataStruct.imgWidth];
         png_bytep row = rowPointers[y];
         for(int x = 0; x < imageDataStruct.imgHeight; x++) {
             png_bytep px = &(row[x * 4]);
@@ -284,12 +295,7 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     png_write_image(pngPointer, rowPointers);
     png_write_end(pngPointer, NULL);
 
-//    for(int y = 0; y < imgHeight; y++) {
-//        free(rowPointers[y]);
-//    }
-    
     if (pngPointer && infoPointer) png_destroy_write_struct(&pngPointer, &infoPointer);
-    free(rowPointers);
     fclose(outfile);
   
     return 0;
