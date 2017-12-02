@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>BMPProcessor/BMPProcessor.h</itemPath>
       <itemPath>IProc/IProc.h</itemPath>
       <itemPath>JPEGProcessor/JPEGProcessor.h</itemPath>
       <itemPath>PNGProcessor/PNGProcessor.h</itemPath>
@@ -20,6 +21,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>BMPProcessor/BMPProcessor.cpp</itemPath>
       <itemPath>IProc/IProc.cpp</itemPath>
       <itemPath>JPEGProcessor/JPEGProcessor.cpp</itemPath>
       <itemPath>PNGProcessor/PNGProcessor.cpp</itemPath>
@@ -55,6 +57,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="BMPProcessor/BMPProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BMPProcessor/BMPProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="IProc/IProc.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="IProc/IProc.h" ex="false" tool="3" flavor2="0">
@@ -102,6 +108,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="BMPProcessor/BMPProcessor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BMPProcessor/BMPProcessor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="IProc/IProc.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="IProc/IProc.h" ex="false" tool="3" flavor2="0">

@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/BMPProcessor/BMPProcessor.o \
 	${OBJECTDIR}/IProc/IProc.o \
 	${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o \
 	${OBJECTDIR}/PNGProcessor/PNGProcessor.o \
@@ -65,6 +66,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libIProc.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libIProc.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/BMPProcessor/BMPProcessor.o: BMPProcessor/BMPProcessor.cpp
+	${MKDIR} -p ${OBJECTDIR}/BMPProcessor
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/BMPProcessor/BMPProcessor.o BMPProcessor/BMPProcessor.cpp
 
 ${OBJECTDIR}/IProc/IProc.o: IProc/IProc.cpp
 	${MKDIR} -p ${OBJECTDIR}/IProc
