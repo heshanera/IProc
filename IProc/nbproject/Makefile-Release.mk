@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/IProc/IProc.o \
 	${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o \
 	${OBJECTDIR}/PNGProcessor/PNGProcessor.o \
-	${OBJECTDIR}/PixelProcessor/PixelProcessor.o
+	${OBJECTDIR}/PixelProcessor/PixelProcessor.o \
+	${OBJECTDIR}/TIFFProcessor/TIFFProcessor.o
 
 
 # C Compiler Flags
@@ -84,6 +85,11 @@ ${OBJECTDIR}/PixelProcessor/PixelProcessor.o: PixelProcessor/PixelProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/PixelProcessor
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PixelProcessor/PixelProcessor.o PixelProcessor/PixelProcessor.cpp
+
+${OBJECTDIR}/TIFFProcessor/TIFFProcessor.o: TIFFProcessor/TIFFProcessor.cpp
+	${MKDIR} -p ${OBJECTDIR}/TIFFProcessor
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TIFFProcessor/TIFFProcessor.o TIFFProcessor/TIFFProcessor.cpp
 
 # Subprojects
 .build-subprojects:

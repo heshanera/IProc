@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     /***** PNG images *****/
     
     iproc.readImageFormatInfo("png");
-    iproc.readImage("imgs/PNG/input/img1.png");
+    iproc.readImage("imgs/PNG/input/img6.png");
     
     // get the pixel in x,y position
     int x = 20, y = 10;
@@ -51,12 +51,39 @@ int main(int argc, char** argv) {
     }
     
     // write the image with changed pixels
-    iproc.writeImage("imgs/PNG/output/img1.png");
+    iproc.writeImage("imgs/PNG/output/img6.png");
     
     /***** JPEG images *****/
     
-    iproc.readImage("imgs/JPEG/input/img5.jpg");
-    iproc.writeImage("imgs/JPEG/output/img5.png");
+    iproc.readImage("imgs/JPEG/input/img6.jpg");
+    
+    // get the pixel in x,y position
+    x = 40, y = 100;
+    pixel = iproc.getPixel(x,y);
+    std::cout   <<"Img("<<x<<","<<y<<") = "
+                <<"RGBA( "
+                <<(int)pixel.r<<" "
+                <<(int)pixel.g<<" "
+                <<(int)pixel.b<<" "
+                <<(int)pixel.a<<" "
+                <<")\n";
+    
+    // replace the pixel in i,j position
+    for(int i = 30; i < 100; i++){
+        for(int j = 85; j < 100; j++){
+            
+            RGBApixel pixel1 = iproc.getPixel(i,j);
+            
+            pixel1.r = 200;
+            pixel1.g = 100;
+            pixel1.b = 80;
+            pixel1.a = 255;
+            
+            iproc.setPixel(i,j,pixel1);
+        }
+    }
+    
+    iproc.writeImage("imgs/JPEG/output/img6.jpg");
     
     
     iproc.testMethod();
