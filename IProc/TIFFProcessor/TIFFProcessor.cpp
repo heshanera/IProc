@@ -138,16 +138,34 @@ int TIFFProcessor::fillRGBApixelArray(uint32* raster, int npixels){
     imgDataStruct.imgPixArray = new RGBApixel[npixels];
     imgDataStruct.imgHeight = imgHeight;
     imgDataStruct.imgWidth = imgWidth;
-    
+    int rasterPos = npixels-imgWidth;
+    int row = imgHeight-1;
+    int offset = 0;
     for(int pixPos = 0; pixPos < npixels; pixPos++){
-        imgDataStruct.imgPixArray[pixPos].r = raster[pixPos] & 0xFF;
-        raster[pixPos] >>= 8;
-        imgDataStruct.imgPixArray[pixPos].g = raster[pixPos] & 0xFF;
-        raster[pixPos] >>= 8;
-        imgDataStruct.imgPixArray[pixPos].b = raster[pixPos] & 0xFF;
-        raster[pixPos] >>= 8;
-        imgDataStruct.imgPixArray[pixPos].a = raster[pixPos] & 0xFF;  
-    }
+        if ((pixPos+1)%imgWidth==0) offset = imgWidth;
+        else offset = 0;
+        imgDataStruct.imgPixArray[pixPos].r = raster[rasterPos+offset] & 0xFF;
+        raster[rasterPos] >>= 8;
+        imgDataStruct.imgPixArray[pixPos].g = raster[rasterPos+offset] & 0xFF;
+        raster[rasterPos] >>= 8;
+        imgDataStruct.imgPixArray[pixPos].b = raster[rasterPos+offset] & 0xFF;
+        raster[rasterPos] >>= 8;
+        imgDataStruct.imgPixArray[pixPos].a = raster[rasterPos+offset] & 0xFF;  
+        rasterPos++;
+        if ((rasterPos+1)%imgWidth == 0) {
+            row--;
+            rasterPos = imgWidth*row-1;
+        }
+    }   
+    return 1;
+}
+
+/**
+ * free the pixel array in imageDataStruct
+ * @return 1 
+ */
+int TIFFProcessor::freeImageData(){
+    imgDataStruct.imgPixArray = NULL;
     return 1;
 }
 

@@ -36,6 +36,7 @@ public:
     int fillRGBApixelArray();
     ImageDataStruct getImageDataStruct();
     
+    int freeImageData();
     
 private:
     int colorType, bitDepth;

@@ -59,14 +59,17 @@ int IProc::readImage(std::string imgPath){
         case 1:
             pngProc.readImage(path);
             imgDataStruct = pngProc.getImageDataStruct();
+            pngProc.freeImageData();
             break;
         case 2:
             jpegProc.readImage(path);
             imgDataStruct = jpegProc.getImageDataStruct();
+            jpegProc.freeImageData();
             break;
         case 3:
             tifProc.readImage(path);
             imgDataStruct = tifProc.getImageDataStruct();
+            tifProc.freeImageData();
             break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");

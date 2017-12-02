@@ -33,6 +33,8 @@ public:
     
     void error_exit(j_common_ptr);
     
+    int freeImageData();
+    
     struct error_mgr {
         struct jpeg_error_mgr pub;
         jmp_buf setjmp_buffer;

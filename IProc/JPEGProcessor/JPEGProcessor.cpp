@@ -218,3 +218,12 @@ int JPEGProcessor::fillRGBApixelArray(JSAMPARRAY buffer, int pixPos, int row_str
     }
     return 1;
 }
+
+/**
+ * free the pixel array in imageDataStruct
+ * @return 1 
+ */
+int JPEGProcessor::freeImageData(){
+    imgDataStruct.imgPixArray = NULL;
+    return 1;
+}

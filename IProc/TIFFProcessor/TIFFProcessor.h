@@ -30,6 +30,8 @@ public:
     int fillRGBApixelArray(uint32* raster,int npixels);
     ImageDataStruct getImageDataStruct();
     
+    int freeImageData();
+    
 private:
     int imgHeight,imgWidth;
     ImageDataStruct imgDataStruct;

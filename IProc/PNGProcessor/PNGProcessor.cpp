@@ -273,7 +273,7 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     for(int y = 0; y < imageDataStruct.imgHeight; y++) {
 //        rowPointers[y] = new png_byte[imageDataStruct.imgWidth];
         png_bytep row = rowPointers[y];
-        for(int x = 0; x < imageDataStruct.imgHeight; x++) {
+        for(int x = 0; x < imageDataStruct.imgWidth; x++) {
             png_bytep px = &(row[x * 4]);
             pixPos = x+(y*imageDataStruct.imgWidth);
             px[0] = imageDataStruct.imgPixArray[pixPos].r;
@@ -323,14 +323,11 @@ ImageDataStruct PNGProcessor::getImageDataStruct(){
     return this->imgDataStruct;
 }
 
-int PNGProcessor::processImage() {
-    for(int y = 0; y < imgHeight; y++) {
-        png_bytep row = rowPointers[y];
-        for(int x = 0; x < imgHeight; x++) {
-            png_bytep px = &(row[x * 4]);
-            //std::cout<<x<<" "<<y<<" = RGBA ("<<px[0]<<" "<<px[1]<<" "<<px[2]<<" "<<px[3]<<")\n";    
-            printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
-        }
-    }
-    return 0;
+/**
+ * free the pixel array in imageDataStruct
+ * @return 1 
+ */
+int PNGProcessor::freeImageData(){
+    imgDataStruct.imgPixArray = NULL;
+    return 1;
 }
