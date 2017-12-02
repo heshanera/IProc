@@ -31,6 +31,8 @@ int IProc::getImageFormat(std::string path){
     if (extension == "png") return 1;
     else if (extension == "jpeg") return 2;
     else if (extension == "jpg") return 2;
+    else if (extension == "tiff") return 3;
+    else if (extension == "tif") return 3;
     else return 0;
     
 }
@@ -61,6 +63,10 @@ int IProc::readImage(std::string imgPath){
         case 2:
             jpegProc.readImage(path);
             imgDataStruct = jpegProc.getImageDataStruct();
+            break;
+        case 3:
+            tifProc.readImage(path);
+            imgDataStruct = tifProc.getImageDataStruct();
             break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
@@ -81,6 +87,9 @@ int IProc::writeImage(std::string imgPath){
         case 2:
             jpegProc.writeImage(path,imgDataStruct);
             break;    
+        case 3:
+            tifProc.writeImage(path,imgDataStruct);
+            break;     
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
@@ -126,25 +135,6 @@ int IProc::resizeImage(int width, int height){
 }
 
 int IProc::testMethod(){
-    
-    std::cout<<"start testing...\n\n";
-    
-//    pixProc.resize(pngProc.getWidth(), pngProc.getHeight(), 10, 10, pngProc.getPixelArray());
-    
-//    RGBApixel pix = pixProc.getPixel(5,10,pngProc.getImageDataStruct());
-//    std::cout<<(int)pix.r;
-    
-    std::cout<<"end testing...\n\n";
-    
-//    PNGProcessor pngProc;
-//    pngProc.readPNGVersionInfo();
-    
-//    readImageFormatInfo("png");
-//    
-//    char path[] = "dsdsd";
-//    readImage(path);
-//    
-//    std::cout<<"\n\nstart testing...";
-    
+    std::cout<<"\n\ntest method...\n\n";    
     return 0;
 }

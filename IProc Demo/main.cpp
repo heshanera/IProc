@@ -33,8 +33,6 @@ int main(int argc, char** argv) {
                 <<(int)pixel.b<<" "
                 <<(int)pixel.a<<" "
                 <<")\n";
-    
-    
     // replace the pixel in i,j position
     for(int i = 5; i < 10; i++){
         for(int j = 10; j < 25; j++){
@@ -49,7 +47,6 @@ int main(int argc, char** argv) {
             iproc.setPixel(i,j,pixel1);
         }
     }
-    
     // write the image with changed pixels
     iproc.writeImage("imgs/PNG/output/img6.png");
     
@@ -82,8 +79,13 @@ int main(int argc, char** argv) {
             iproc.setPixel(i,j,pixel1);
         }
     }
-    
+    // write the image with changed pixels
     iproc.writeImage("imgs/JPEG/output/img6.jpg");
+    
+    /***** TIFF images *****/
+    
+    iproc.readImage("imgs/TIF/input/img4.TIF");
+    iproc.writeImage("imgs/TIF/output/img4.TIF");
     
     
     iproc.testMethod();

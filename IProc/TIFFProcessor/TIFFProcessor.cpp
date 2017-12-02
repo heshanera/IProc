@@ -51,8 +51,26 @@ int TIFFProcessor::getWidth() {
  */
 int TIFFProcessor::readImage(char * filename) {
   
-    
+    TIFF* tif = TIFFOpen(filename, "r");
+    if (tif) {
+	uint32 w, h;
+	size_t npixels;
+	uint32* raster;
 
+	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &w);
+	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &h);
+        imgHeight = h;
+        imgWidth = w;
+	npixels = w * h;
+	raster = (uint32*) _TIFFmalloc(npixels * sizeof (uint32));
+	if (raster != NULL) {
+	    if (TIFFReadRGBAImage(tif, w, h, raster, 0)) {
+                fillRGBApixelArray(raster,npixels);
+            }
+	    _TIFFfree(raster);
+	}
+	TIFFClose(tif);
+    }
     return 1;
 }
 
@@ -63,6 +81,8 @@ int TIFFProcessor::readImage(char * filename) {
  */
 int TIFFProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) {
   
+    TIFF* tif = TIFFOpen("foo.tif", "w");
+    TIFFClose(tif);
     
     return 1;
 }
@@ -80,15 +100,18 @@ ImageDataStruct TIFFProcessor::getImageDataStruct(){
  * @param row_stride physical row width in image buffer 
  * @return 1 
  */
-int TIFFProcessor::fillRGBApixelArray(){
+int TIFFProcessor::fillRGBApixelArray(uint32* raster, int npixels){
     
-//    for(int i = 0; i < row_stride; i+=3){
-//        imgDataStruct.imgPixArray[pixPos].r = (int)buffer[0][i];
-//        imgDataStruct.imgPixArray[pixPos].g = (int)buffer[0][i+1];
-//        imgDataStruct.imgPixArray[pixPos].b = (int)buffer[0][i+2];
-//        imgDataStruct.imgPixArray[pixPos].a = 255;
-//        pixPos++;
-//    }
+    imgDataStruct.imgPixArray = new RGBApixel[npixels];
+    imgDataStruct.imgHeight = imgHeight;
+    imgDataStruct.imgWidth = imgWidth;
+    
+    for(int pixPos = 0; pixPos < npixels; pixPos++){
+        for(int i = 0; i < 4; i++){
+            raster[pixPos] & 0xFF;
+            raster[pixPos] >>= 8;
+        }
+    }
     return 1;
 }
 

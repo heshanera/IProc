@@ -9,6 +9,8 @@
 #define TIFFPROCESSOR_H
 
 #include <stdio.h>
+#include <iostream>
+#include "tiffio.h"
 #include "../PixelProcessor/pixel.h"
 
 class TIFFProcessor {
@@ -25,7 +27,7 @@ public:
     int setWidth(int width);
     int setHeight(int height);
     
-    int fillRGBApixelArray();
+    int fillRGBApixelArray(uint32* raster,int npixels);
     ImageDataStruct getImageDataStruct();
     
 private:

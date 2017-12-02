@@ -51,6 +51,7 @@
           <linkerLibItems>
             <linkerOptionItem>`pkg-config --libs libpng`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs libjpeg`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs libtiff-4`</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
