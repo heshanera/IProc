@@ -26,7 +26,7 @@ public:
     int setWidth(int width);
     int setHeight(int height);
     
-    int fillRGBApixelArray();
+    int fillRGBApixelArray(unsigned char* data, int row);
     ImageDataStruct getImageDataStruct();
     
     int freeImageData();

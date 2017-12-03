@@ -108,8 +108,10 @@ int main(int argc, char** argv) {
     
     iproc.readImage("imgs/BMP/input/img1.BMP");
     // write the image with changed pixels
+    iproc.writeImage("imgs/BMP/output/img1.jpg");
+    iproc.writeImage("imgs/BMP/output/img1.png");
+    iproc.writeImage("imgs/BMP/output/img1.tif");
     iproc.writeImage("imgs/BMP/output/img1.BMP");
-    
     
     iproc.testMethod();
     
