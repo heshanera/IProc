@@ -50,6 +50,7 @@ int BMPProcessor::getWidth() {
  * @return 1 if read the image without any errors
  */
 int BMPProcessor::readImage(char * filename) {
+    
     return 1;
 }
 

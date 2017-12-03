@@ -13,6 +13,7 @@
 #include "../PNGProcessor/PNGProcessor.h"
 #include "../JPEGProcessor/JPEGProcessor.h"
 #include "../TIFFProcessor/TIFFProcessor.h"
+#include "../BMPProcessor/BMPProcessor.h"
 #include "../PixelProcessor/PixelProcessor.h"
 #include "../PixelProcessor/pixel.h"
 
@@ -41,6 +42,7 @@ private:
     PNGProcessor pngProc;
     JPEGProcessor jpegProc;
     TIFFProcessor tifProc;
+    BMPProcessor bmpProc;
     PixelProcessor pixProc;
     ImageDataStruct imgDataStruct;
     

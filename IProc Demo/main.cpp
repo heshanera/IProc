@@ -104,6 +104,13 @@ int main(int argc, char** argv) {
     iproc.writeImage("imgs/TIF/output/img4.tif");
     
     
+    /***** BMP images *****/
+    
+    iproc.readImage("imgs/BMP/input/img1.BMP");
+    // write the image with changed pixels
+    iproc.writeImage("imgs/BMP/output/img1.BMP");
+    
+    
     iproc.testMethod();
     
     return 0;

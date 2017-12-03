@@ -33,6 +33,7 @@ int IProc::getImageFormat(std::string path){
     else if (extension == "jpg") return 2;
     else if (extension == "tiff") return 3;
     else if (extension == "tif") return 3;
+    else if (extension == "bmp") return 4;
     else return 0;
     
 }
@@ -71,6 +72,11 @@ int IProc::readImage(std::string imgPath){
             imgDataStruct = tifProc.getImageDataStruct();
             tifProc.freeImageData();
             break;    
+        case 4:
+            bmpProc.readImage(path);
+            imgDataStruct = bmpProc.getImageDataStruct();
+            bmpProc.freeImageData();
+            break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
@@ -92,7 +98,10 @@ int IProc::writeImage(std::string imgPath){
             break;    
         case 3:
             tifProc.writeImage(path,imgDataStruct);
-            break;     
+            break;
+        case 4:
+            bmpProc.writeImage(path,imgDataStruct);
+            break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
