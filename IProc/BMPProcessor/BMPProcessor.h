@@ -9,7 +9,9 @@
 #define BMPPROCESSOR_H
 
 #include <stdio.h>
+#include <cstring>
 #include <iostream>
+#include <fstream>
 #include "../PixelProcessor/pixel.h"
 
 class BMPProcessor {

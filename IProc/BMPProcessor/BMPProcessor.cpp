@@ -87,83 +87,59 @@ int BMPProcessor::readImage(char * filename) {
  */
 int BMPProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) {
     
-    unsigned int headers[13];
-    FILE * outfile;
-    int extrabytes;
-    int paddedsize;
-    int x; int y; int n;
-    int red, green, blue;
-    
-    imgWidth = imageDataStruct.imgWidth;
     imgHeight = imageDataStruct.imgHeight;
+    imgWidth = imageDataStruct.imgWidth;
     
-    extrabytes = 4 - ((imgWidth * 3) % 4);  // How many bytes of padding to add to each
-                                            // horizontal line - the size of which must
-                                            // be a multiple of 4 bytes.
-    if (extrabytes == 4) extrabytes = 0;
-    paddedsize = ((imgWidth * 3) + extrabytes) * imgHeight;
+    FILE *file;
+    unsigned char *img = NULL;
+    int pixSize = 3*imgWidth*imgHeight;
+    int filesize = 54 + pixSize;  //w is your image width, h is image height, both int
 
-    headers[0]  = paddedsize + 54;  // bfSize (whole file size)
-    headers[1]  = 0;                // bfReserved (both)
-    headers[2]  = 54;               // bfOffbits
-    headers[3]  = 40;               // biSize
-    headers[4]  = imgWidth;         // biWidth
-    headers[5]  = imgHeight;        // biHeight
-    headers[7]  = 0;                // biCompression
-    headers[8]  = paddedsize;       // biSizeImage
-    headers[9]  = 0;                // biXPelsPerMeter
-    headers[10] = 0;                // biYPelsPerMeter
-    headers[11] = 0;                // biClrUsed
-    headers[12] = 0;                // biClrImportant
-
-    outfile = fopen(filename, "wb");
-
-    for (n = 0; n <= 5; n++) {
-       fprintf(outfile, "%c", headers[n] & 0x000000FF);
-       fprintf(outfile, "%c", (headers[n] & 0x0000FF00) >> 8);
-       fprintf(outfile, "%c", (headers[n] & 0x00FF0000) >> 16);
-       fprintf(outfile, "%c", (headers[n] & (unsigned int) 0xFF000000) >> 24);
-    }
-
-    fprintf(outfile, "%c", 1);
-    fprintf(outfile, "%c", 0);
-    fprintf(outfile, "%c", 24);
-    fprintf(outfile, "%c", 0);
-
-    for (n = 7; n <= 12; n++) {
-       fprintf(outfile, "%c", headers[n] & 0x000000FF);
-       fprintf(outfile, "%c", (headers[n] & 0x0000FF00) >> 8);
-       fprintf(outfile, "%c", (headers[n] & 0x00FF0000) >> 16);
-       fprintf(outfile, "%c", (headers[n] & (unsigned int) 0xFF000000) >> 24);
-    }
-
-    int pixPos;
-    for (y = imgHeight - 1; y >= 0; y--) {
-        pixPos = y*imgWidth; 
-        for (x = 0; x <= imgWidth - 1; x++) {
-
-            red = imageDataStruct.imgPixArray[pixPos+x].r;
-            green = imageDataStruct.imgPixArray[pixPos+x].g;
-            blue = imageDataStruct.imgPixArray[pixPos+x].b;
-
-            if (red > 255) red = 0; if (red < 0) red = 0;
-            if (green > 255) green = 0; if (green < 0) green = 0;
-            if (blue > 255) blue = 0; if (blue < 0) blue = 0;
-
-            // Also, it's written in (b,g,r) format...
-
-            fprintf(outfile, "%c", blue);
-            fprintf(outfile, "%c", green);
-            fprintf(outfile, "%c", red);
-        }
-        if (extrabytes) {
-            for (n = 1; n <= extrabytes; n++) {
-               fprintf(outfile, "%c", 0);
-            }
+    img = (unsigned char *)malloc(3*imgWidth*imgHeight);
+    
+    memset(img,0,pixSize);
+    int x,y,r,g,b;
+    for(int i=0; i<imgWidth; i++) {
+        for(int j=0; j<imgHeight; j++) {
+            x=i; y=(imgHeight-1)-j;
+            r = imageDataStruct.imgPixArray[x + y*imgWidth].r;
+            g = imageDataStruct.imgPixArray[x + y*imgWidth].g;
+            b = imageDataStruct.imgPixArray[x + y*imgWidth].b;
+            img[(x+y*imgWidth)*3+2] = (unsigned char)(r);
+            img[(x+y*imgWidth)*3+1] = (unsigned char)(g);
+            img[(x+y*imgWidth)*3+0] = (unsigned char)(b);
         }
     }
 
-    fclose(outfile);
+    unsigned char bmpfileheader[14] = {'B','M', 0,0,0,0, 0,0, 0,0, 54,0,0,0};
+    unsigned char bmpinfoheader[40] = {40,0,0,0, 0,0,0,0, 0,0,0,0, 1,0, 24,0};
+    unsigned char bmppad[3] = {0,0,0};
+
+    bmpfileheader[ 2] = (unsigned char)(filesize);
+    bmpfileheader[ 3] = (unsigned char)(filesize>> 8);
+    bmpfileheader[ 4] = (unsigned char)(filesize>>16);
+    bmpfileheader[ 5] = (unsigned char)(filesize>>24);
+
+    bmpinfoheader[ 4] = (unsigned char)(imgWidth);
+    bmpinfoheader[ 5] = (unsigned char)(imgWidth>> 8);
+    bmpinfoheader[ 6] = (unsigned char)(imgWidth>>16);
+    bmpinfoheader[ 7] = (unsigned char)(imgWidth>>24);
+    bmpinfoheader[ 8] = (unsigned char)(imgHeight);
+    bmpinfoheader[ 9] = (unsigned char)(imgHeight>> 8);
+    bmpinfoheader[10] = (unsigned char)(imgHeight>>16);
+    bmpinfoheader[11] = (unsigned char)(imgHeight>>24);
+
+    file = fopen(filename,"wb");
+    fwrite(bmpfileheader,1,14,file);
+    fwrite(bmpinfoheader,1,40,file);
+    for(int i=0; i<imgHeight; i++)
+    {
+        fwrite(img+(imgWidth*(imgHeight-i-1)*3),3,imgWidth,file);
+        fwrite(bmppad,1,(4-(imgWidth*3)%4)%4,file);
+    }
+
+    free(img);
+    fclose(file);
     
     return 1;
 }
