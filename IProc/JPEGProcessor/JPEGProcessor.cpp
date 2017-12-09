@@ -112,6 +112,8 @@ int JPEGProcessor::readImage(char * filename) {
     jpeg_destroy_decompress(&cinfo);
 
     fclose(infile);
+    
+    free(buffer);
 
     return 1;
 }
@@ -181,6 +183,8 @@ int JPEGProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct)
     fclose(outfile);
     /* release JPEG compression object */
     jpeg_destroy_compress(&cinfo);
+    
+    delete imageDataStruct.imgPixArray;
 
     return 1;
 }
