@@ -113,7 +113,7 @@ int TIFFProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct)
         _TIFFfree(buf);
         TIFFClose(tif);
     }
-    
+    delete imageDataStruct.imgPixArray;
     return 1;
 }
 

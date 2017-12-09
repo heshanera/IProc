@@ -186,8 +186,7 @@ int PNGProcessor::readImage(char* path){
     png_read_update_info(pngPointer, infoPointer);
   
     rowBytes = png_get_rowbytes(pngPointer, infoPointer);
-    png_byte pChannels = png_get_channels(pngPointer, infoPointer);
-  
+
     if ((imageData = (unsigned char *)malloc(rowBytes*imgHeight)) == NULL) {
         png_destroy_read_struct(&pngPointer, &infoPointer, NULL);
         return -1;
@@ -204,6 +203,12 @@ int PNGProcessor::readImage(char* path){
     
     // fill the pixel array and create imageDataStruct
     fillRGBApixelArray();
+    
+    imageData = NULL;
+    free(pngPointer);
+    free(infoPointer);
+    
+    fclose(infile);
     
     return 0;
 }
@@ -289,8 +294,14 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     png_write_end(pngPointer, NULL);
 
     if (pngPointer && infoPointer) png_destroy_write_struct(&pngPointer, &infoPointer);
+    
+    delete imageDataStruct.imgPixArray;
+    
     fclose(outfile);
-  
+    
+    free(imageData);
+    free(mainprogPointer);
+    
     return 0;
 }
 
