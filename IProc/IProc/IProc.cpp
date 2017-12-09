@@ -228,3 +228,26 @@ int IProc::grayscale(){
     }
     return 1;
 }
+
+/**
+ * 
+ * @param limit
+ * @return 
+ */
+int IProc::binary(int limit){
+    
+    int pixSize = imgDataStruct.imgWidth * imgDataStruct.imgHeight;
+    int grayVal,binVal;
+    RGBApixel pix;
+    for (int i = 0; i < pixSize; i++) {
+        pix = imgDataStruct.imgPixArray[i];
+        grayVal  = (int)((pix.r + pix.g + pix.b)/3);
+        if (grayVal > limit) binVal = 255; 
+        else binVal = 0;
+        pix.r = binVal;
+        pix.g = binVal;
+        pix.b = binVal;
+        imgDataStruct.imgPixArray[i] = pix;
+    }
+    return 1;
+}

@@ -102,6 +102,7 @@ int main() {
         }
     }
     // write the image with changed pixels
+    iproc.binary(150);
     iproc.writeImage("imgs/TIF/output/img4.tif");
     
     

@@ -38,6 +38,7 @@ public:
     
     int resizeImage(int, int);
     int crop(int, int, int, int);
+    int binary(int);
     int grayscale();
     
     int testMethod();
