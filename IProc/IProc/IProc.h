@@ -37,6 +37,7 @@ public:
     int setImageDataStruct(ImageDataStruct imgDataStruct);
     
     int resizeImage(int, int);
+    int crop(int, int, int, int);
     int grayscale();
     
     int testMethod();

@@ -167,12 +167,51 @@ int IProc::setImageDataStruct(ImageDataStruct imgDataStruct){
     return 1;
 }
 
+/**
+ * 
+ * @param width new width of the image
+ * @param height new height of the image
+ * @return 1
+ */
 int IProc::resizeImage(int width, int height){
     
     
     return 1;
 }
 
+/**
+ * 
+ * @param row1
+ * @param col1
+ * @param row2
+ * @param col2
+ * @param originWidth
+ * @param OriginalArray
+ * @return 
+ */
+int IProc::crop(int row1, int col1, int row2, int col2){
+    
+    int newHeight = row2 - row1;
+    int newWidth = col2 - col1;
+    int newPixelSize = newWidth * newHeight;
+    int row, pos;
+    ImageDataStruct newImageDataStruct;
+    newImageDataStruct.imgHeight = newHeight;
+    newImageDataStruct.imgWidth = newWidth;
+    newImageDataStruct.imgPixArray = new RGBApixel[newPixelSize];
+    for ( int i = 0; i < newPixelSize; i++ ) {
+        row = row1 + (int)(i/newWidth);
+        pos = (imgDataStruct.imgWidth * row) + col1 + (i % newWidth);
+        newImageDataStruct.imgPixArray[i] = imgDataStruct.imgPixArray[pos];
+    }
+    imgDataStruct = newImageDataStruct;
+    return 1;
+}
+
+/**
+ * Convert the RGB pixel values to grayscale 
+ * @return 1 
+ */
 int IProc::grayscale(){
     
     int pixSize = imgDataStruct.imgWidth*imgDataStruct.imgHeight;

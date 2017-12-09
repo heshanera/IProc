@@ -120,6 +120,7 @@ int main() {
         }
     }
     iproc.grayscale();
+    iproc.crop(10,10,125,80);
     iproc.writeImage("imgs/BMP/output/img1.BMP");
     
     
