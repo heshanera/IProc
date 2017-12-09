@@ -173,9 +173,32 @@ int IProc::setImageDataStruct(ImageDataStruct imgDataStruct){
  * @param height new height of the image
  * @return 1
  */
-int IProc::resizeImage(int width, int height){
+int IProc::resizeImage(int newWidth, int newHeight){
     
+    ImageDataStruct newImgDataStruct;
+    newImgDataStruct.imgWidth = newWidth;
+    newImgDataStruct.imgHeight = newHeight;
+    newImgDataStruct.imgPixArray = new RGBApixel[newWidth*newHeight];
     
+//    if(imgDataStruct.imgPixArray == NULL) return false;
+//    //
+//    // Get a new buuffer to interpolate into
+//    unsigned char* newData = new unsigned char [newWidth * newHeight * 3];
+//
+//    double scaleWidth =  (double)newWidth / (double)imgDataStruct.imgWidth;
+//    double scaleHeight = (double)newHeight / (double)imgDataStruct.imgHeight;
+//
+//    RGBApixel pix;
+//    for(int cy = 0; cy < newHeight; cy++) {
+//        for(int cx = 0; cx < newWidth; cx++) {
+//            int pixel = (cy * (newWidth *3)) + (cx*3);
+//            int nearestMatch =  (((int)(cy / scaleHeight) * (imgDataStruct.imgWidth *3)) + ((int)(cx / scaleWidth) *3) );
+//            pix = imgDataStruct.imgPixArray[nearestMatch/3];
+//            newImgDataStruct.imgPixArray[pixel] =  pix;
+//        }
+//    }
+//
+//    this->imgDataStruct = newImgDataStruct;
     return 1;
 }
 
