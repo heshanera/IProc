@@ -14,7 +14,7 @@ using namespace std;
 /*
  * 
  */
-int main(int argc, char** argv) {
+int main() {
 
     IProc iproc;
     
@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
                 <<(int)pixel.b<<" "
                 <<(int)pixel.a<<" "
                 <<")\n";
+    
     // replace the pixel in i,j position
     for(int i = 5; i < 10; i++){
         for(int j = 10; j < 25; j++){
@@ -108,9 +109,16 @@ int main(int argc, char** argv) {
     
     iproc.readImage("imgs/BMP/input/img1.BMP");
     // write the image with changed pixels
-    iproc.writeImage("imgs/BMP/output/img1.jpg");
-    iproc.writeImage("imgs/BMP/output/img1.png");
-    iproc.writeImage("imgs/BMP/output/img1.tif");
+    for(int i = 36; i < 80; i++){
+        for(int j = 45; j < 120; j++){
+            RGBApixel pixel1 = iproc.getPixel(i,j);
+            pixel1.r = 200;
+            pixel1.g = 100;
+            pixel1.b = 80;
+            pixel1.a = 255;       
+            iproc.setPixel(i,j,pixel1);
+        }
+    }
     iproc.writeImage("imgs/BMP/output/img1.BMP");
     
     iproc.testMethod();

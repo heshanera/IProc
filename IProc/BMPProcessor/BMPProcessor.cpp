@@ -51,13 +51,12 @@ int BMPProcessor::getWidth() {
  */
 int BMPProcessor::readImage(char * filename) {
     
-    int i;
     FILE* file = fopen(filename, "rb");
     if (file == NULL) {
         std::cout<<"error in the file '"<<filename<<"'";
         return 0;
     }    
-    unsigned char info[54];
+    unsigned char * info = new unsigned char[54];
     fread(info, sizeof(unsigned char), 54, file); // read the 54-byte header
 
     // extract image height and width from header
@@ -77,6 +76,8 @@ int BMPProcessor::readImage(char * filename) {
         fillRGBApixelArray(data,row);
     }
     
+    delete info,data;
+    fclose(file);
     return 1;
 }
 
@@ -93,8 +94,7 @@ int BMPProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) 
     FILE *file;
     unsigned char *img = NULL;
     int pixSize = 3*imgWidth*imgHeight;
-    int filesize = 54 + pixSize;  //w is your image width, h is image height, both int
-
+    int filesize = 54 + pixSize;  
     img = (unsigned char *)malloc(3*imgWidth*imgHeight);
     
     memset(img,0,pixSize);
@@ -138,6 +138,7 @@ int BMPProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct) 
         fwrite(bmppad,1,(4-(imgWidth*3)%4)%4,file);
     }
 
+    delete imageDataStruct.imgPixArray;
     free(img);
     fclose(file);
     
