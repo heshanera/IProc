@@ -53,6 +53,11 @@ int IProc::readImageFormatInfo(std::string path){
     return 0;
 }
 
+/**
+ * 
+ * @param imgPath path of the image source
+ * @return 1
+ */
 int IProc::readImage(std::string imgPath){
     
     char *path = new char[imgPath.length() + 1];
@@ -83,9 +88,14 @@ int IProc::readImage(std::string imgPath){
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
     }
     delete [] path;
-    return 0;
+    return 1;
 }
 
+/**
+ * 
+ * @param imgPath path of the target image
+ * @return 1 
+ */
 int IProc::writeImage(std::string imgPath){
     
     char *path = new char[imgPath.length() + 1];
@@ -126,6 +136,15 @@ RGBApixel IProc::getPixel(int x,int y){
 
 /**
  * 
+ * @return ImageDataStruct
+ */
+ImageDataStruct IProc::getImageDataStruct(){
+    
+    return this->imgDataStruct;
+}
+
+/**
+ * 
  * @param x position of pixel
  * @param y position of pixel
  * @param pixel new pixel to replace with the old pixel in that position
@@ -137,6 +156,17 @@ int IProc::setPixel(int x,int y,RGBApixel pixel){
     return 1;
 }
 
+/**
+ * 
+ * @param imgDataStruct image data structure
+ * @return 1
+ */
+int IProc::setImageDataStruct(ImageDataStruct imgDataStruct){ 
+    
+    this->imgDataStruct = imgDataStruct;
+    return 1;
+}
+
 int IProc::resizeImage(int width, int height){
     
     
@@ -145,6 +175,17 @@ int IProc::resizeImage(int width, int height){
 
 int IProc::grayscale(){
     
-    
+    int pixSize = imgDataStruct.imgWidth*imgDataStruct.imgHeight;
+    RGBApixel pix;
+    int grayPixVal;
+    for(int i = 0; i < pixSize; i++){
+        pix = imgDataStruct.imgPixArray[i];
+//        grayPixVal = (pix.r>>2) + (pix.g>>1) + (pix.b>>2);
+        grayPixVal = (int)((pix.r + pix.g + pix.b)/3);
+        pix.r = grayPixVal;
+        pix.g = grayPixVal;
+        pix.b = grayPixVal;
+        imgDataStruct.imgPixArray[i] = pix;
+    }
     return 1;
 }

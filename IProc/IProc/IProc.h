@@ -32,7 +32,9 @@ public:
     int writeImage(std::string, std::string);
     
     RGBApixel getPixel(int,int);
+    ImageDataStruct getImageDataStruct();
     int setPixel(int,int,RGBApixel);
+    int setImageDataStruct(ImageDataStruct imgDataStruct);
     
     int resizeImage(int, int);
     int grayscale();

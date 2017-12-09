@@ -119,6 +119,7 @@ int main() {
             iproc.setPixel(i,j,pixel1);
         }
     }
+    iproc.grayscale();
     iproc.writeImage("imgs/BMP/output/img1.BMP");
     
     
@@ -126,6 +127,21 @@ int main() {
     /*****************************************************/
     /*****************************************************/
     /*****************************************************/
+    
+//    IProc ip;
+//    ip.readImage("");
+//    
+//    RGBApixel pix = ip.getPixel(10,10);
+//    ip.setPixel(10,15,pix);
+//    
+//    ImageDataStruct img = ip.getImageDataStruct();
+//    std::cout<<"image height: "<<img.imgHeight;
+//    std::cout<<"image width: "<<img.imgWidth;
+//    
+//    ip.resizeImage(100,20);
+//    ip.grayscale();
+//    
+//    ip.writeImage("");
     
     
     
