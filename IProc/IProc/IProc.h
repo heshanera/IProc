@@ -33,7 +33,9 @@ public:
     
     RGBApixel getPixel(int,int);
     int setPixel(int,int,RGBApixel);
+    
     int resizeImage(int, int);
+    int grayscale();
     
     int testMethod();
     

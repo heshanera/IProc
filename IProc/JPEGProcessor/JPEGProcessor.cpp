@@ -113,8 +113,6 @@ int JPEGProcessor::readImage(char * filename) {
 
     fclose(infile);
     
-    free(buffer);
-
     return 1;
 }
 

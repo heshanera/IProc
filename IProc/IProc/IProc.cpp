@@ -21,6 +21,8 @@ IProc::~IProc() { }
  * @return an integer according to the image format
  * 1 : PNG
  * 2 : JPEG/JPG
+ * 3 : TIFF/TIF
+ * 4 : BMP
  */
 int IProc::getImageFormat(std::string path){
     // getting the image type from path (file extension)
@@ -137,16 +139,12 @@ int IProc::setPixel(int x,int y,RGBApixel pixel){
 
 int IProc::resizeImage(int width, int height){
     
-    switch(getImageFormat("empty")){
-        case 1:
-            break;
-        default:
-            fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
-    }
-    return 0;
+    
+    return 1;
 }
 
-int IProc::testMethod(){
-    std::cout<<"\n\ntest method...\n\n";    
-    return 0;
+int IProc::grayscale(){
+    
+    
+    return 1;
 }
