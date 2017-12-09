@@ -53,18 +53,15 @@ int TIFFProcessor::readImage(char * filename) {
   
     TIFF* tif = TIFFOpen(filename, "r");
     if (tif) {
-	uint32 w, h;
 	size_t npixels;
 	uint32* raster;
 
-	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &w);
-	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &h);
-        imgHeight = h;
-        imgWidth = w;
-	npixels = w * h;
+	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &imgWidth);
+	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &imgHeight);
+        npixels = imgWidth * imgHeight;
 	raster = (uint32*) _TIFFmalloc(npixels * sizeof (uint32));
 	if (raster != NULL) {
-	    if (TIFFReadRGBAImage(tif, w, h, raster, 0)) {
+	    if (TIFFReadRGBAImage(tif, imgWidth, imgHeight, raster, 0)) {
                 fillRGBApixelArray(raster,npixels);
             }
 	    _TIFFfree(raster);
