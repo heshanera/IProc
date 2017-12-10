@@ -1,6 +1,6 @@
 # IProc
 
-A dynamic library for image processing. To Extract the pixel map of the image. Support PNG, JPG, TIF and BMP file formats. Inbuilt methods for resizing, croppping, grayscale, binary.
+A dynamic library for image processing. To Extract the pixel map of the image. Support PNG, JPG, TIF and BMP image file formats. Inbuilt methods for resizing, croppping, generating grayscale and binary images.
 
 ### Data Structures
 `RGBAPixel` 
