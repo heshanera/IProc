@@ -36,7 +36,7 @@ public:
     int setPixel(int,int,RGBApixel);
     int setImageDataStruct(ImageDataStruct imgDataStruct);
     
-    int resizeImage(int, int);
+    int resize(int, int);
     int crop(int, int, int, int);
     int binary(int);
     int grayscale();

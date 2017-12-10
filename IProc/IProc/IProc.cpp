@@ -169,36 +169,67 @@ int IProc::setImageDataStruct(ImageDataStruct imgDataStruct){
 
 /**
  * 
- * @param width new width of the image
- * @param height new height of the image
+ * @param targetWidth new width of the image
+ * @param targetHeight new height of the image
  * @return 1
  */
-int IProc::resizeImage(int newWidth, int newHeight){
+int IProc::resize(int targetWidth, int targetHeight)  {    
+    
+    if (targetWidth == -1 && targetHeight == -1) {
+        return 0;
+    } else if (targetWidth == -1) {
+        targetWidth = (int)(imgDataStruct.imgWidth)*targetHeight/imgDataStruct.imgHeight;
+    } else if (targetHeight == -1) {
+        targetHeight = (int)(imgDataStruct.imgHeight*targetWidth)/imgDataStruct.imgWidth;
+    }
     
     ImageDataStruct newImgDataStruct;
-    newImgDataStruct.imgWidth = newWidth;
-    newImgDataStruct.imgHeight = newHeight;
-    newImgDataStruct.imgPixArray = new RGBApixel[newWidth*newHeight];
+    newImgDataStruct.imgWidth = targetWidth;
+    newImgDataStruct.imgHeight = targetHeight;
+    newImgDataStruct.imgPixArray = new RGBApixel[targetWidth*targetHeight];
+
+    int sourceWidth = imgDataStruct.imgWidth; 
+    int sourceHeight = imgDataStruct.imgHeight; 
     
-//    if(imgDataStruct.imgPixArray == NULL) return false;
-//    //
-//    // Get a new buuffer to interpolate into
-//    unsigned char* newData = new unsigned char [newWidth * newHeight * 3];
-//
-//    double scaleWidth =  (double)newWidth / (double)imgDataStruct.imgWidth;
-//    double scaleHeight = (double)newHeight / (double)imgDataStruct.imgHeight;
-//
-//    RGBApixel pix;
-//    for(int cy = 0; cy < newHeight; cy++) {
-//        for(int cx = 0; cx < newWidth; cx++) {
-//            int pixel = (cy * (newWidth *3)) + (cx*3);
-//            int nearestMatch =  (((int)(cy / scaleHeight) * (imgDataStruct.imgWidth *3)) + ((int)(cx / scaleWidth) *3) );
-//            pix = imgDataStruct.imgPixArray[nearestMatch/3];
-//            newImgDataStruct.imgPixArray[pixel] =  pix;
-//        }
-//    }
-//
-//    this->imgDataStruct = newImgDataStruct;
+    RGBApixel a, b, c, d; 
+    int x, y, index;
+    int x_ratio = ((int)(sourceWidth - 1)) / targetWidth;
+    int y_ratio = ((int)(sourceHeight - 1)) / targetHeight;
+    int x_diff, y_diff, blue, red, green ;
+    int offset = 0 ;
+
+    for (int i = 0; i < targetHeight; i++) {
+        for (int j = 0; j < targetWidth; j++) {
+            x = (int)(x_ratio * j) ;
+            y = (int)(y_ratio * i) ;
+            x_diff = (x_ratio * j) - x ;
+            y_diff = (y_ratio * i) - y ;
+            index = (y * sourceWidth + x) ;                
+            a = imgDataStruct.imgPixArray[index] ;
+            b = imgDataStruct.imgPixArray[index + 1] ;
+            c = imgDataStruct.imgPixArray[index + sourceWidth] ;
+            d = imgDataStruct.imgPixArray[index + sourceWidth + 1] ;
+
+            // blue element
+            blue = (a.b)*(1-x_diff)*(1-y_diff) + (b.b)*(x_diff)*(1-y_diff) +
+                   (c.b)*(y_diff)*(1-x_diff)   + (d.b)*(x_diff*y_diff);
+
+            // green element
+            green = (a.g)*(1-x_diff)*(1-y_diff) + (b.g)*(x_diff)*(1-y_diff) +
+                    (c.g)*(y_diff)*(1-x_diff)   + (d.g)*(x_diff*y_diff);
+
+            // red element
+            red = (a.r)*(1-x_diff)*(1-y_diff) + (b.r)*(x_diff)*(1-y_diff) +
+                  (c.r)*(y_diff)*(1-x_diff)   + (d.r)*(x_diff*y_diff);
+
+            newImgDataStruct.imgPixArray[offset].r = (int)red;
+            newImgDataStruct.imgPixArray[offset].g = (int)green;
+            newImgDataStruct.imgPixArray[offset].b = (int)blue;
+            newImgDataStruct.imgPixArray[offset].a = (int)255;  
+            offset++;
+        }
+    }
+    this->imgDataStruct = newImgDataStruct;
     return 1;
 }
 

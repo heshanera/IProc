@@ -74,7 +74,7 @@ int main() {
         }
     }
     // write the image with changed pixels
-    iproc.resizeImage(50,50);
+    iproc.resize(-1,150);
     iproc.writeImage("imgs/JPEG/output/img6.jpg");
     
     /***** TIFF images *****/
