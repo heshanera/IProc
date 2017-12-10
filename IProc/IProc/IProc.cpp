@@ -182,6 +182,8 @@ int IProc::resize(int targetWidth, int targetHeight)  {
     } else if (targetHeight == -1) {
         targetHeight = (int)(imgDataStruct.imgHeight*targetWidth)/imgDataStruct.imgWidth;
     }
+    targetWidth += targetWidth/5;
+    targetHeight += targetHeight/5;       
     
     ImageDataStruct newImgDataStruct;
     newImgDataStruct.imgWidth = targetWidth;
@@ -225,7 +227,7 @@ int IProc::resize(int targetWidth, int targetHeight)  {
             newImgDataStruct.imgPixArray[offset].r = (int)red;
             newImgDataStruct.imgPixArray[offset].g = (int)green;
             newImgDataStruct.imgPixArray[offset].b = (int)blue;
-            newImgDataStruct.imgPixArray[offset].a = (int)255;  
+            newImgDataStruct.imgPixArray[offset].a = 255;  
             offset++;
         }
     }

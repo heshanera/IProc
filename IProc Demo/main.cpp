@@ -17,7 +17,7 @@ using namespace std;
 int main() {
     
     IProc ip;
-    ip.readImage("imgs/JPEG/input/img1.jpg");
+    ip.readImage("imgs/JPEG/input/img5.jpg");
     
     int x = 10, y = 10;
     RGBApixel pixel = ip.getPixel(x, y);
@@ -38,16 +38,16 @@ int main() {
     
     ip.writeImage("imgs/PNG/output/img1.png");
     
-    ip.readImage("imgs/JPEG/input/img1.jpg");
+    ip.readImage("imgs/JPEG/input/img5.jpg");
     ip.grayscale();
     ip.writeImage("imgs/PNG/output/img2.png");
     
-    ip.readImage("imgs/JPEG/input/img1.jpg");
+    ip.readImage("imgs/JPEG/input/img5.jpg");
     ip.binary(180);
     ip.writeImage("imgs/PNG/output/img3.png");
     
-    ip.readImage("imgs/JPEG/input/img1.jpg");
-    ip.resize(100,-1);
+    ip.readImage("imgs/JPEG/input/img5.jpg");
+    ip.resize(100,100);
     ip.writeImage("imgs/PNG/output/img4.png");
     
 //    IProc iproc;
