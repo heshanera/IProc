@@ -94,3 +94,57 @@ imgData.binary(125);
 // write image to a given path
 imgData.writeImage("path/to/target/file.png");
 ```
+### Example
+```
+#include <libiproc.h>
+#include <iostream>
+
+int main() {
+    
+    IProc ip;
+    ip.readImage("imgs/JPEG/input/img5.jpg");
+    
+    int x = 10, y = 10;
+    RGBApixel pixel = ip.getPixel(x, y);
+    std::cout   <<"Image("<<x<<","<<y<<") = "
+                <<"RGBA( "
+                <<(int)pixel.r<<" "
+                <<(int)pixel.g<<" "
+                <<(int)pixel.b<<" "
+                <<(int)pixel.a<<" "
+                <<")\n";
+    
+    ip.setPixel(10,15,pixel);
+    
+    ImageDataStruct img = ip.getImageDataStruct();
+    std::cout<<"image height: "<<img.imgHeight;
+    std::cout<<"\n";
+    std::cout<<"image width: "<<img.imgWidth;
+    
+    ip.writeImage("imgs/PNG/output/img1.png");
+    
+    ip.readImage("imgs/JPEG/input/img5.jpg");
+    ip.grayscale();
+    ip.writeImage("imgs/PNG/output/img2.png");
+    
+    ip.readImage("imgs/JPEG/input/img5.jpg");
+    ip.binary(180);
+    ip.writeImage("imgs/PNG/output/img3.png");
+    
+    ip.readImage("imgs/JPEG/input/img5.jpg");
+    ip.resize(100,100);
+    ip.writeImage("imgs/PNG/output/img4.png");
+    
+    return 0;
+}
+```
+#### Output
+```
+>> Image(10,10) = RGBA( 255 255 255 255 )
+>> image height: 250
+>> image width: 250
+```
+| **Original**  | **Grayscale**  | **Binary**  | **Resized**  | 
+| ----- |-----|-----|-----|
+|![architecture](https://github.com/heshanera/IProc/blob/master/IProc%20Demo/imgs/JPEG/input/img5.jpg) |![architecture](https://github.com/heshanera/IProc/blob/master/IProc%20Demo/imgs/PNG/output/img2.png) |![architecture](https://github.com/heshanera/IProc/blob/master/IProc%20Demo/imgs/PNG/output/img3.png) |![architecture](https://github.com/heshanera/IProc/blob/master/IProc%20Demo/imgs/PNG/output/img4.png) |
+
