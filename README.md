@@ -38,14 +38,16 @@ struct ImageDataStruct {
 *reading the image file*
 ```
 IProc ip;
-ip.readImage("");
+ip.readImage("path/to/source/file.jpg");
 ```
-*getting the pixel of position (x,y)*
+*getting the pixel value*
 ```
+// pixel in the position (x, y)
 RGBApixel pix = ip.getPixel(10,10);
 ```
-*set a pixel at position (x,y)*
+*set a pixel value*
 ```
+// set the pixel at position (x, y)
 RGBApixel pix;
 pix.r = 100;
 pix.g = 100;
@@ -57,26 +59,38 @@ ip.setPixel(10,15,pix);
 ```
 ImageDataStruct imgData;
 imgData = ip.getImageDataStruct();
+// printing the height and width of the image
 std::cout<<"Image height: "<<imgData.imgHeight;
 std::cout<<"Image width: "<<imgData.imgWidth;
 ```
 *resize the image*
 ```
+// resize the image (width, height)
 imgData.resizeImage(100,20);
-```
-*get the grayscale pixels of the image*
-```
-imgData.grayscale();
+
+// resize the image (width, auto)
+imgData.resizeImage(100,-1);
+
+// resize the image (auto, height)
+imgData.resizeImage(-1,20);
 ```
 *crop the image*
 ```
+// crop the image (row1, col1, row2, col2);
 imgData.crop(20,30,80,100);
+```
+*get the grayscale pixels of the image*
+```
+// convert the RGB values to grayscale intensity values
+imgData.grayscale();
 ```
 *get the binary pixel map of the image*
 ```
-imgData.binary(100);
+// convert the image in to a binary image (grayscale intensity value)
+imgData.binary(125);
 ```
 *write image to a target file*
 ```
-imgData.writeImage("");
+// write image to a given path
+imgData.writeImage("path/to/target/file.png");
 ```
