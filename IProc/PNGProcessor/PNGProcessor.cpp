@@ -300,7 +300,7 @@ int PNGProcessor::writeImage(char* path, ImageDataStruct imageDataStruct){
     fclose(outfile);
     
     free(imageData);
-    free(mainprogPointer);
+//    free(mainprogPointer);
     
     return 0;
 }
