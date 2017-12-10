@@ -9,11 +9,6 @@
 #include <libiproc.h>
 #include <iostream>
 
-using namespace std;
-
-/*
- * 
- */
 int main() {
     
     IProc ip;
