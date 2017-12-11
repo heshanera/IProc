@@ -2,6 +2,14 @@
 
 A dynamic library for image processing. To Extract the pixel map of the image. Support PNG, JPG, TIF and BMP image file formats. Inbuilt methods for resizing, cropping, generating grayscale and binary images.
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]() &nbsp;&nbsp;
+[![license](https://img.shields.io/badge/language-c%2B%2B-red.svg)]() &nbsp;&nbsp;
+[![license](https://img.shields.io/badge/library-libpng-brightgreen.svg)]() &nbsp;&nbsp;
+[![license](https://img.shields.io/badge/library-libjpeg-brightgreen.svg)]() &nbsp;&nbsp;
+[![license](https://img.shields.io/badge/library-libtiff-brightgreen.svg)]() &nbsp;&nbsp;
+
+
+
 ### Data Structures
 `RGBAPixel` 
 `ImageDataStruct`
