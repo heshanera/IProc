@@ -1,7 +1,7 @@
 # IProc
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/mit-license.php) &nbsp;&nbsp;
-[![language](https://img.shields.io/badge/language-c%2B%2B-red.svg)](https://github.com/heshanera/IProc/edit/master/README.md) &nbsp;&nbsp;
+[![language](https://img.shields.io/badge/language-c%2B%2B-red.svg)](https://github.com/heshanera/IProc) &nbsp;&nbsp;
 [![library](https://img.shields.io/badge/library-libpng-brightgreen.svg)](http://www.libpng.org/pub/png/libpng.html) &nbsp;&nbsp;
 [![library](https://img.shields.io/badge/library-libjpeg-brightgreen.svg)](http://libjpeg.sourceforge.net/) &nbsp;&nbsp;
 [![library](https://img.shields.io/badge/library-libtiff-brightgreen.svg)](http://www.libtiff.org/) &nbsp;&nbsp;
