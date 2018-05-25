@@ -70,32 +70,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libIProc.${CND_DLIB_EXT}: ${OBJECTFIL
 ${OBJECTDIR}/BMPProcessor/BMPProcessor.o: BMPProcessor/BMPProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/BMPProcessor
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4`   -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/BMPProcessor/BMPProcessor.o BMPProcessor/BMPProcessor.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4` -std=c++14  -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/BMPProcessor/BMPProcessor.o BMPProcessor/BMPProcessor.cpp
 
 ${OBJECTDIR}/IProc/IProc.o: IProc/IProc.cpp
 	${MKDIR} -p ${OBJECTDIR}/IProc
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4`   -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/IProc/IProc.o IProc/IProc.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4` -std=c++14  -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/IProc/IProc.o IProc/IProc.cpp
 
 ${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o: JPEGProcessor/JPEGProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/JPEGProcessor
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4`   -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o JPEGProcessor/JPEGProcessor.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4` -std=c++14  -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/JPEGProcessor/JPEGProcessor.o JPEGProcessor/JPEGProcessor.cpp
 
 ${OBJECTDIR}/PNGProcessor/PNGProcessor.o: PNGProcessor/PNGProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/PNGProcessor
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4`   -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PNGProcessor/PNGProcessor.o PNGProcessor/PNGProcessor.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4` -std=c++14  -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PNGProcessor/PNGProcessor.o PNGProcessor/PNGProcessor.cpp
 
 ${OBJECTDIR}/PixelProcessor/PixelProcessor.o: PixelProcessor/PixelProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/PixelProcessor
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4`   -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PixelProcessor/PixelProcessor.o PixelProcessor/PixelProcessor.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4` -std=c++14  -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PixelProcessor/PixelProcessor.o PixelProcessor/PixelProcessor.cpp
 
 ${OBJECTDIR}/TIFFProcessor/TIFFProcessor.o: TIFFProcessor/TIFFProcessor.cpp
 	${MKDIR} -p ${OBJECTDIR}/TIFFProcessor
 	${RM} "$@.d"
-	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4`   -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TIFFProcessor/TIFFProcessor.o TIFFProcessor/TIFFProcessor.cpp
+	$(COMPILE.cc) -g `pkg-config --cflags libpng` `pkg-config --cflags libjpeg` `pkg-config --cflags libtiff-4` -std=c++14  -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TIFFProcessor/TIFFProcessor.o TIFFProcessor/TIFFProcessor.cpp
 
 # Subprojects
 .build-subprojects:

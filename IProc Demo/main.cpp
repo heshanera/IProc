@@ -11,41 +11,41 @@
 
 int main() {
     
-    IProc ip;
-    ip.readImage("imgs/JPEG/input/img5.jpg");
+//    IProc ip;
+//    ip.readImage("imgs/JPEG/input/img5.jpg");
+//    
+//    int x = 10, y = 10;
+//    RGBApixel pixel = ip.getPixel(x, y);
+//    std::cout   <<"Image("<<x<<","<<y<<") = "
+//                <<"RGBA( "
+//                <<(int)pixel.r<<" "
+//                <<(int)pixel.g<<" "
+//                <<(int)pixel.b<<" "
+//                <<(int)pixel.a<<" "
+//                <<")\n";
+//    
+//    ip.setPixel(10,15,pixel);
+//    
+//    ImageDataStruct img = ip.getImageDataStruct();
+//    std::cout<<"image height: "<<img.imgHeight;
+//    std::cout<<"\n";
+//    std::cout<<"image width: "<<img.imgWidth;
+//    
+//    ip.writeImage("imgs/PNG/output/img1.png");
+//    
+//    ip.readImage("imgs/JPEG/input/img5.jpg");
+//    ip.grayscale();
+//    ip.writeImage("imgs/PNG/output/img2.png");
+//    
+//    ip.readImage("imgs/JPEG/input/img5.jpg");
+//    ip.binary(180);
+//    ip.writeImage("imgs/PNG/output/img3.png");
+//    
+//    ip.readImage("imgs/JPEG/input/img5.jpg");
+//    ip.resize(100,100);
+//    ip.writeImage("imgs/PNG/output/img4.png");
     
-    int x = 10, y = 10;
-    RGBApixel pixel = ip.getPixel(x, y);
-    std::cout   <<"Image("<<x<<","<<y<<") = "
-                <<"RGBA( "
-                <<(int)pixel.r<<" "
-                <<(int)pixel.g<<" "
-                <<(int)pixel.b<<" "
-                <<(int)pixel.a<<" "
-                <<")\n";
-    
-    ip.setPixel(10,15,pixel);
-    
-    ImageDataStruct img = ip.getImageDataStruct();
-    std::cout<<"image height: "<<img.imgHeight;
-    std::cout<<"\n";
-    std::cout<<"image width: "<<img.imgWidth;
-    
-    ip.writeImage("imgs/PNG/output/img1.png");
-    
-    ip.readImage("imgs/JPEG/input/img5.jpg");
-    ip.grayscale();
-    ip.writeImage("imgs/PNG/output/img2.png");
-    
-    ip.readImage("imgs/JPEG/input/img5.jpg");
-    ip.binary(180);
-    ip.writeImage("imgs/PNG/output/img3.png");
-    
-    ip.readImage("imgs/JPEG/input/img5.jpg");
-    ip.resize(100,100);
-    ip.writeImage("imgs/PNG/output/img4.png");
-    
-//    IProc iproc;
+    IProc iproc;
 //    
 //    /***** PNG images *****/
 //    
@@ -108,7 +108,7 @@ int main() {
 //    
 //    /***** TIFF images *****/
 //    
-//    iproc.readImage("imgs/TIF/input/img1.TIF");
+    iproc.readImage("imgs/TIF/input/img1.TIF");
 //    // get the pixel in x,y position
 //    x = 40, y = 100;
 //    pixel = iproc.getPixel(x,y);
@@ -133,7 +133,7 @@ int main() {
 //    }
 //    // write the image with changed pixels
 //    iproc.binary(150);
-//    iproc.writeImage("imgs/TIF/output/img4.TIF");
+    iproc.writeImage("imgs/TIF/output/img4.TIF");
 //    
 //    
 //    /***** BMP images *****/

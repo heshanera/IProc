@@ -88,7 +88,7 @@ int TIFFProcessor::writeImage (char * filename, ImageDataStruct imageDataStruct)
         imagewidth = imageDataStruct.imgWidth ;
         imagelength = imageDataStruct.imgHeight ;
         config = PLANARCONFIG_CONTIG ;
-        nsamples = 4;
+        nsamples = 3;
 
         TIFFSetField(tif, TIFFTAG_IMAGELENGTH, imagelength);
         TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, imagewidth);
@@ -152,6 +152,7 @@ int TIFFProcessor::fillRGBApixelArray(uint32* raster, int npixels){
         if ((rasterPos+1)%imgWidth == 0) {
             row--;
             rasterPos = imgWidth*row-1;
+            if (rasterPos < 0) break;
         }
     }   
     return 1;
