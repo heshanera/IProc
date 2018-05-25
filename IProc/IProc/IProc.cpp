@@ -112,7 +112,23 @@ int IProc::writeImage(std::string imgPath){
             tifProc.writeImage(path,imgDataStruct);
             break;
         case 4:
-            bmpProc.writeImage(path,imgDataStruct);
+            bmpProc.writeImage(path,imgDataStruct,32);
+            break;    
+        default:
+            fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");
+    }
+    return 0;
+
+}
+
+int IProc::writeImage(std::string imgPath, int bBit){
+    
+    char *path = new char[imgPath.length() + 1];
+    strcpy(path, imgPath.c_str());
+    
+    switch(getImageFormat(imgPath)){
+        case 4:
+            bmpProc.writeImage(path,imgDataStruct,bBit);
             break;    
         default:
             fprintf(stderr, " Invalid Image Format or Image format is not supported by IProc\n");

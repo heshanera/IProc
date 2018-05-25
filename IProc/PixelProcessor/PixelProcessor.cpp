@@ -243,7 +243,8 @@ u_int* PixelProcessor::crop(int row1, int col1, int row2, int col2, int originWi
 }
 
 u_int* PixelProcessor::shear(){
-    
+    u_int *newPixelArray;
+    return newPixelArray;
 }
 
 /**
@@ -276,7 +277,8 @@ u_int* PixelProcessor::grayScale(int originWidth, int originHeight, u_int* Origi
 }
 
 u_int* PixelProcessor::rotate(){
-    
+    u_int *newPixelArray;
+    return newPixelArray;
 }
 
 /**

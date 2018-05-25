@@ -21,14 +21,14 @@ public:
     virtual ~BMPProcessor();
     
     int readImage(char* path);
-    int writeImage(char* path,ImageDataStruct);
+    int writeImage(char* path,ImageDataStruct,int bBit);
     
     int getWidth();
     int getHeight();
     int setWidth(int width);
     int setHeight(int height);
     
-    int fillRGBApixelArray(unsigned char* data, int row);
+    int fillRGBApixelArray(unsigned char* data, int row, int byteSize);
     ImageDataStruct getImageDataStruct();
     
     int freeImageData();

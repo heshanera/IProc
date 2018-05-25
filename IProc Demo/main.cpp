@@ -133,7 +133,7 @@ int main() {
 //    }
 //    // write the image with changed pixels
 //    iproc.binary(150);
-//    iproc.writeImage("imgs/TIF/output/img4.tif");
+//    iproc.writeImage("imgs/TIF/output/img4.TIF");
 //    
 //    
 //    /***** BMP images *****/
@@ -152,7 +152,7 @@ int main() {
 //    }
 //    iproc.grayscale();
 //    iproc.crop(10,10,125,80);
-//    iproc.writeImage("imgs/BMP/output/img1.BMP");
+//    iproc.writeImage("imgs/BMP/output/img1.BMP",32);
     
     return 0;
 }

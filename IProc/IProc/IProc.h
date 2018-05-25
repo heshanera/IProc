@@ -29,6 +29,7 @@ public:
     
     int readImage(std::string);
     int writeImage(std::string);
+    int writeImage(std::string,int);
     int writeImage(std::string, std::string);
     
     RGBApixel getPixel(int,int);

@@ -6,20 +6,6 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/JPEGProcessor/JPEGProcessor.cpp</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/PixelProcessor/PixelProcessor.cpp</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/TIFFProcessor/TIFFProcessor.h</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/TIFFProcessor/TIFFProcessor.cpp</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/PixelProcessor/pixel.h</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/BMPProcessor/BMPProcessor.cpp</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/PNGProcessor/PNGProcessor.cpp</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/PixelProcessor/PixelProcessor.h</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/IProc/IProc.cpp</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/JPEGProcessor/JPEGProcessor.h</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/BMPProcessor/BMPProcessor.h</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/IProc/IProc.h</file>
-            <file>file:/home/heshan/Projects/NetBeansProjects/IProc/IProc/PNGProcessor/PNGProcessor.h</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
