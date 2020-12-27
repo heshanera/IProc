@@ -11,7 +11,7 @@ A dynamic library for image processing. To Extract the pixel map of the image. S
 ### Data Structures
 `RGBAPixel` 
 `ImageDataStruct`
-```
+```cpp
 struct RGBApixel {
     unsigned char r = 0;
     unsigned char g = 0;
@@ -19,7 +19,7 @@ struct RGBApixel {
     unsigned char a = 0;
 };
 ```
-```
+```cpp
 struct ImageDataStruct {
     RGBApixel * imgPixArray;
     int imgWidth;
@@ -42,17 +42,17 @@ struct ImageDataStruct {
 
 
 *reading the image file*
-```
+```cpp
 IProc ip;
 ip.readImage("path/to/source/file.jpg");
 ```
 *getting the pixel value*
-```
+```cpp
 // pixel in the position (x, y)
 RGBApixel pix = ip.getPixel(10,10);
 ```
 *set a pixel value*
-```
+```cpp
 // set the pixel at position (x, y)
 RGBApixel pix;
 pix.r = 100;
@@ -62,7 +62,7 @@ pix.a = 255;
 ip.setPixel(10,15,pix);
 ```
 *get the pixel map of the image*
-```
+```cpp
 ImageDataStruct imgData;
 imgData = ip.getImageDataStruct();
 // printing the height and width of the image
@@ -70,7 +70,7 @@ std::cout<<"Image height: "<<imgData.imgHeight;
 std::cout<<"Image width: "<<imgData.imgWidth;
 ```
 *resize the image*
-```
+```cpp
 // resize the image (width, height)
 imgData.resizeImage(100,20);
 
@@ -81,27 +81,27 @@ imgData.resizeImage(100,-1);
 imgData.resizeImage(-1,20);
 ```
 *crop the image*
-```
+```cpp
 // crop the image (row1, col1, row2, col2);
 imgData.crop(20,30,80,100);
 ```
 *get the grayscale pixels of the image*
-```
+```cpp
 // convert the RGB values to grayscale intensity values
 imgData.grayscale();
 ```
 *get the binary pixel map of the image*
-```
+```cpp
 // convert the image in to a binary image (grayscale intensity value)
 imgData.binary(125);
 ```
 *write image to a target file*
-```
+```cpp
 // write image to a given path
 imgData.writeImage("path/to/target/file.png");
 ```
 ### Example
-```
+```cpp
 #include <libiproc.h>
 #include <iostream>
 
